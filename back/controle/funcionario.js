@@ -14,12 +14,12 @@ export const getFunc = async () => {
     }
 };
 
-export const setFunc = async ({Nome, Email, Telefone, Foto, CPF, Cod_empresa, Cod_cargo, senha}) => {
+export const setFunc = async ({Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha}) => {
     const con = await conexao(); // Função para obter a conexão do banco de dados
     try {
         const [result] = await con.execute(
-            'INSERT INTO funcionario (Nome, Email, Telefone, Foto, CPF, Cod_empresa, Cod_cargo, senha)VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            [Nome, Email, Telefone, Foto, CPF, Cod_empresa, Cod_cargo, senha]
+            'INSERT INTO funcionario (Nome, Email, Telefone, foto, CPF, Empresa_Cod_empresa, cargo_Cod_cargo, senha)VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha]
         );
         return result;
     } catch (error) {

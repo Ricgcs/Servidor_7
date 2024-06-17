@@ -1,0 +1,34 @@
+funcionario
+
+{
+"Nome":"Jorge",
+"Email":"Jorge@gmail.com",
+"Telefone":12343453, 
+"foto":"afadfdad",
+"CPF":12345456,
+"Cod_empresa":1,
+"Cod_cargo":1, 
+"senha":"123abc"
+}
+
+
+produto
+
+{
+ "nome":"Prego",
+ "valor":30, 
+ "quantidade":1,
+ "area":20,
+ "cod_empr":1,
+ "foto":"31dsada"
+}
+
+
+cargo  
+
+{
+ "valor":"Salario",
+ "nome":"Cod_cargo",
+ "ent":"1",
+ "tipo":"11000"
+}

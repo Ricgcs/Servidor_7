@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 //------------------------------------------------usuário---------------------------------------------------------
 app.post('/usuario', async (req, res) => {
-    const {nome, email, senha, cpf, cod, foto} = req.params; // Supondo que esses são os parâmetros esperados
+    const {nome, email, senha, cpf, cod, foto} = req.body; // Supondo que esses são os parâmetros esperados
 
     try {
         const resultado = await setUser({ nome, email, senha, cpf, cod, foto});
@@ -65,7 +65,7 @@ app.get('/usuario/mostrar_todos', async (req, res) => {
 
 //-------------------------------------------------Produto---------------------------------------------------------
 app.post('/produto', async (req, res) => {
-    const { nome, valor, quantidade, area, cod_empr, foto } = req.params; // Supondo que esses são os parâmetros esperados
+    const { nome, valor, quantidade, area, cod_empr, foto } = req.body; // Supondo que esses são os parâmetros esperados
 
     try {
         const resultado = await setProd({ nome, valor, quantidade, area, cod_empr, foto });
@@ -116,7 +116,7 @@ app.get('/produto/mostrar_todos', async (req, res) => {
 });
 //------------------------------------------------------Empresa------------------------------------------------------------
 app.post('/empresa', async (req, res) => {
-    const {Nome, RS, Email, CNPJ, Senha, Foto } = req.params; // Supondo que esses são os parâmetros esperados
+    const {Nome, RS, Email, CNPJ, Senha, Foto } = req.body; // Supondo que esses são os parâmetros esperados
 
     try {
         const resultado = await setEmpr({Nome, RS, Email, CNPJ, Senha, Foto});
@@ -168,7 +168,7 @@ app.get('/empresa/mostrar_todos', async (req, res) => {
 //--------------------------------------------------------------Cargo--------------------------------------------------------
 
 app.post('/cargo', async (req, res) => {
-    const {Nome, Salario, Cod_empresa } = req.params; // Supondo que esses são os parâmetros esperados
+    const {Nome, Salario, Cod_empresa } = req.body; // Supondo que esses são os parâmetros esperados
 
     try {
         const resultado = await setCarg({Nome, Salario, Cod_empresa });
@@ -221,10 +221,10 @@ app.get('/cargo/mostrar_todos', async (req, res) => {
 //----------------------------------------------------------Funcionário------------------------------------------
 
 app.post('/funcionario', async (req, res) => {
-    const {Nome, Email, Telefone, Foto, CPF, Cod_empresa, Cod_cargo, senha } = req.params; // Supondo que esses são os parâmetros esperados
-
+    const {Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha } = req.body; // Supondo que esses são os parâmetros esperados
+console.log(Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha )
     try {
-        const resultado = await setCarg({Nome, Email, Telefone, Foto, CPF, Cod_empresa, Cod_cargo, senha});
+        const resultado = await setFunc({Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha});
         res.status(201).json({ message: "Funcionário criado com sucesso", data: resultado });
     } catch (error) {
         res.status(500).json({ message: "Erro ao criar o funcionário", error: error.message });

@@ -19,7 +19,7 @@ export const setCarg = async ({Nome, Salario, Cod_empresa }) => {
     const con = await conexao(); // Função para obter a conexão do banco de dados
     try {
         const [result] = await con.execute(
-            'INSERT INTO cargo (Nome, Salario, Cod_empresa )VALUES (?, ?, ?)',
+            'INSERT INTO cargo (Nome, Salario, Empresa_Cod_empresa )VALUES (?, ?, ?)',
             [Nome, Salario, Cod_empresa ]
         );
         return result;
@@ -55,10 +55,10 @@ export const procurarCargo = async ({ valor, nome }) => {
         throw error;
     }
 };
-export const atualizarCargo = async(valor, elemento, ent, tipo)=>{
+export const atualizarCargo = async(valor, nome, ent, tipo)=>{
 
     try{
-const sql = `UPDATE cargo SET ${valor} = ? where ${elemento} = ?`;
+const sql = `UPDATE cargo SET ${valor} = ? where ${nome} = ?`;
 const upp = await con.query(sql,[ent, tipo]);
 console.log("Cargo atualizado",upp);
     }
