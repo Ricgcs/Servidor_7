@@ -9,7 +9,7 @@ export const conexao = async () => {
         host: "localhost",
         user: "root",
         password: "",
-        database: "crud",
+        database: "mydb",
     });
 
     console.log("conexão funcionou");
