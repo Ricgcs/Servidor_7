@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../Montserrat-VariableFont_wght.ttf);
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    position: relative;
+    
+ 
+font-family: 'Montserrate';
+}
+
+body::before {
+    
+    
+content: '';
+ 
+position: fixed;
+
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+    
+background: url("../img/estrelado.jpg") no-repeat center center;
+
+background-size: cover;
+
+opacity: 1; /* Opacidade do pseudo-elemento */
+
+z-index: -1; /* Coloca o pseudo-elemento atrás do conteúdo do body */
+}
+#menu {
+
+    background: linear-gradient(
+        to bottom,
+        transparent 50%, /* Orange with 40% opacity */
+        rgba(255, 77, 0, 0.5) /* Solid Orange */
+    );
+    height: 100%;
+    width: 100%;
+}
+header{
+    color:white;
+padding: 1vw;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+#Nome_header{
+    margin-left: 1vw;
+}
+
+#div_link_header{
+    display: flex;
+}
+
+#Links_header{
+   margin-left: 2vw;
+   font-size: 1vw;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+img{
+    height: 40%;
+    width: 10%;
+    display: inline;
+}
+
+#logo_instagram{
+    height: 80%;
+}
+
+#div_img_header{
+    height: 40%;
+    width: 10%;
+}
+
+#corpo{
+height: 80%;
+width: 100%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color:white;
+font-family:'Montserrate';
+}
+
+#section_corpo{
+    margin-top: -2vw;
+    margin-left: 17%;
+   
+}
+#imagem_corpo{
+    height: 50%;
+    width: 75%;
+    display: flex;
+    opacity:0.5;
+float: right;
+}
+
+#h1_corpo_top{
+    font-size: 4vw;
+}
+
+#h2_corpo_top{
+    font-size:2vw;
+    margin-left: 6.5vw;
+}
+
+#h1_corpo_mid{
+ font-size: 1vw;
+ color: gray;
+ margin-top: 4vw;
+ margin-left: 3vw;
+}
+#h2_corpo_mid{
+    font-size: 1vw;
+    color: gray;
+    margin:0px 0px 0px 18vw;
+}
+
+#corpo_button_cadastrar{
+background: rgba(215, 101, 11, 1);
+padding: 1.3vw;
+font-size: 1vw;
+border-radius: 1.5vw;
+margin-left: 19vw;
+margin-top: 3vw;
+text-shadow: 0px 0px 1vw white
+}
+
+button:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
