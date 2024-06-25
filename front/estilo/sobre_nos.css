@@ -9,7 +9,7 @@
    
 }
 @font-face {
-    font-family: "moul";
+    font-family: 'moul';
     src: url(../fontes/Moul-Regular.ttf);
 }
 html, body {
@@ -17,6 +17,10 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+#link_menu{
+    margin-left: -10vw;
 }
 
 body {
@@ -53,8 +57,8 @@ z-index: -1; /* Coloca o pseudo-elemento atrás do conteúdo do body */
 
     background: linear-gradient(360deg,
         
-    rgba(0, 0, 0, 0.6) 50%, /* Orange with 40% opacity */
-        rgba(255, 77, 0, 0.6) /* Solid Orange */
+    rgba(0, 0, 0, 0.8) 50%, /* Orange with 40% opacity */
+        rgba(255, 77, 0, 0.8) /* Solid Orange */
     );
     height: 100%;
     width: 100%;
@@ -69,7 +73,6 @@ justify-content: space-between;
 }
 #Nome_header{
     margin-left: 1vw;
-    
     font-family:'moul';
     font-size: 1.3vw;
 }
@@ -197,11 +200,20 @@ input:hover{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-direction: column;
     color:white;
     font-family:'Montserrate';
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.09);
+    border-radius: 0.3vw;
     margin-left: 10%;
     }
+
+#metas{
+    display: flex;
+    width: 100%;
+    height: 75%;
+    justify-content: space-around;
+}
 
 #imagem_foguete{
 
@@ -209,7 +221,13 @@ input:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 20%;
+    height: 80%;
+    text-align: center;
+    border-radius: 0.4vw;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
+    padding: 1vw;
+
 
 }
 
@@ -219,7 +237,12 @@ input:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 20%;
+    height: 80%;
+    text-align: center;
+    border-radius: 0.4vw;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
+    padding: 1vw;
 
 }
 
@@ -227,8 +250,15 @@ input:hover{
      display: flex;
      flex-direction: column;
      align-items: center;
-     justify-content: center;
+     width: 20%;
+    height: 80%;
     background: rgba(30, 30, 30, 1);
+    border-radius: 0.4vw;
+    text-align: center;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.6);
+    padding: 1vw;
+
+
 }
 
 #texto_img{
@@ -237,16 +267,22 @@ input:hover{
 }
 
 #pc{
-width: 12vw;
+width: 90%;
+height: 50%;
+margin: 1vw 0 1vw 0;
 
 }
 
 #foguete{
-    width: 6.2vw;
+width: 55%;
+height: 43%;
+margin: 2vw 0 2vw 0;
 
 }
 
 #cadeado{
-    width: 9.7vw;
+width: 80%;
+height: 45%;
+margin: 2vw 0 2vw 0;
 
 }

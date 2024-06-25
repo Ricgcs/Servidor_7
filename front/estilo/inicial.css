@@ -5,7 +5,12 @@
 }
 @font-face {
     font-family: 'Montserrate';
-    src: url(../Montserrat-VariableFont_wght.ttf);
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
 }
 html, body {
     height: 100%;
@@ -14,11 +19,23 @@ html, body {
     padding: 0;
 }
 
+#mon{
+    font-family: "Montserrate";
+}
+
+#mou{
+    font-family: 'moul';
+}
+
+
+
+#link_menu{
+    margin-left: -10vw;
+    font-family: 'Montserrate';
+}
 body {
     position: relative;
     
- 
-font-family: 'Montserrate';
 }
 
 body::before {
@@ -48,8 +65,8 @@ z-index: -1; /* Coloca o pseudo-elemento atrás do conteúdo do body */
 
     background: linear-gradient(
         to bottom,
-        transparent 50%, /* Orange with 40% opacity */
-        rgba(255, 77, 0, 0.5) /* Solid Orange */
+        rgba(0, 0, 0, 0.8) 50%, /* Orange with 40% opacity */
+        rgba(255, 77, 0, 0.8) /* Solid Orange */
     );
     height: 100%;
     width: 100%;
@@ -63,6 +80,8 @@ justify-content: space-between;
 }
 #Nome_header{
     margin-left: 1vw;
+    font-family: 'moul';
+
 }
 
 #div_link_header{
@@ -72,6 +91,8 @@ justify-content: space-between;
 #Links_header{
    margin-left: 2vw;
    font-size: 1vw;
+font-family: 'Montserrate';
+
 }
 
 a{
@@ -101,12 +122,14 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 color:white;
-font-family:'Montserrate';
+font-family: 'Montserrate';
+
 }
 
 #section_corpo{
     margin-top: -2vw;
     margin-left: 17%;
+    
    
 }
 #imagem_corpo{
@@ -119,18 +142,19 @@ float: right;
 
 #h1_corpo_top{
     font-size: 4vw;
+    margin-left: -5vw;
 }
 
 #h2_corpo_top{
     font-size:2vw;
-    margin-left: 6.5vw;
+    margin-left: 6vw;
 }
 
 #h1_corpo_mid{
  font-size: 1vw;
  color: gray;
  margin-top: 4vw;
- margin-left: 3vw;
+
 }
 #h2_corpo_mid{
     font-size: 1vw;
@@ -142,8 +166,8 @@ float: right;
 background: rgba(215, 101, 11, 1);
 padding: 1.3vw;
 font-size: 1vw;
-border-radius: 1.5vw;
-margin-left: 19vw;
+border-radius: 1.3vw;
+margin-left: 16.5vw;
 margin-top: 3vw;
 text-shadow: 0px 0px 1vw white
 }
@@ -152,3 +176,4 @@ button:hover{
     cursor: pointer;
     opacity: 0.6;
 }
+
