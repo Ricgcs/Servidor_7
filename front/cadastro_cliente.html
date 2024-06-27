@@ -8,6 +8,9 @@
     <title>Cadastro cliente</title>
 </head>
 <body>
+    <script>
+
+    </script>
     <div id="menu">
 <header>
     <a><h1 id="Nome_header"><a id="link_menu"href="inicial.html">InovaWorks</a></h1></a>
@@ -31,15 +34,23 @@
 <div id="corpo">
     <img id="img_form" src="img/logo_inteiro.png" alt="logo">
     <h1 id="Nome_img">InovaWorks</h1>
-<form>
+
+
+
+<form action="http://localhost:3000/usuario" method="POST">
    
-    <input type="text" placeholder="Nome" required>
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Senha" required>
-    <input type="number" placeholder="CPF" required>
+    <input id="formCadastro" type="text" placeholder="Nome"  name="nome" required>
+    <input type="email" placeholder="Email" name="email" required>
+    <input type="password" placeholder="Senha" name="senha" required>
+    <input type="number" placeholder="CPF" name="cpf"required>
+    <input type="number" placeholder="Cod_empresa" name="cod_empr"required>
     <button type="submit" id="corpo_button_cadastrar">Cadastrar</button>
     
 </form>
+
+
+
+
 <h6><a href="login_cliente.html">Já é cadastrado? login</a></h6>
 </div>
 

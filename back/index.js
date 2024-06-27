@@ -1,4 +1,5 @@
 import express from "express";
+import bodyParser from "body-parser";
 import { atualizar, procurar, setUser, getUser, delUser} from "../back/controle/usuario.js";
 import { atualizarProd, procurarProd, setProd, getProd, delProd} from "../back/controle/produtos.js";
 import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr} from "../back/controle/empresa.js";
@@ -12,16 +13,32 @@ const user = "localhost";
 const app = express();
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
 //------------------------------------------------usuário---------------------------------------------------------
 app.post('/usuario', async (req, res) => {
-    const {nome, email, senha, cpf, cod, foto} = req.body; // Supondo que esses são os parâmetros esperados
+  let nome = req.body.nome
+  let email = req.body.email
+  let senha = req.body.senha
+  let cpf = req.body.cpf
+  let cod = req.body.cod_empr
+  let foto = "1123wwe"
 
-    try {
-        const resultado = await setUser({ nome, email, senha, cpf, cod, foto});
-        res.status(201).json({ message: "Usuário criado com sucesso", data: resultado });
-    } catch (error) {
-        res.status(500).json({ message: "Erro ao criar usuário", error: error.message });
-    }
+let obj = ({
+    nome:nome,
+    email:email,
+    senha:senha,
+    cpf:cpf,
+    cod:cod,
+    foto:foto
+    
+})
+let obj_json = JSON.stringify(obj)
+
+res.send({
+  obj_json
+})
+
 });
 
 
