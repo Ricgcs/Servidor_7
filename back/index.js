@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { atualizar, procurar, setUser, getUser, delUser} from "../back/controle/usuario.js";
+import { atualizar, procurar, setUser, getUser, delUser, validarUser} from "../back/controle/usuario.js";
 import { atualizarProd, procurarProd, setProd, getProd, delProd} from "../back/controle/produtos.js";
 import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr} from "../back/controle/empresa.js";
 import { atualizarCargo, procurarCargo, setCarg, getCarg, delCarg} from "../back/controle/cargo.js";
@@ -16,30 +16,43 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 //------------------------------------------------usuário---------------------------------------------------------
-app.post('/usuario', async (req, res) => {
-  let nome = req.body.nome
-  let email = req.body.email
-  let senha = req.body.senha
-  let cpf = req.body.cpf
-  let cod = req.body.cod_empr
-  let foto = "1123wwe"
+app.get('/teste', async (req, res) => {
+    let cod_em = Number(req.body.cod_empr);
+    let cpf = Number(req.body.cpf);
 
-let obj = ({
-    nome:nome,
-    email:email,
-    senha:senha,
-    cpf:cpf,
-    cod:cod,
-    foto:foto
-    
-})
-let obj_json = JSON.stringify(obj)
-
-res.send({
-  obj_json
-})
-
+    try {
+        const count = await validarUser(cod_em, cpf);
+        if (count === 0) {
+            res.send("funciona");
+        } else {
+            res.send(`Usuário já existente: ${count}`);
+        }
+    } catch (error) {
+        res.status(500).send('Erro ao validar usuário.');
+    }
 });
+app.post('/usuario', async (req, res) => {
+    let nome = req.body.nome;
+    let email = req.body.email;
+    let senha = req.body.senha;
+    let cpf = Number(req.body.cpf);
+    let cod = Number(req.body.cod_empr);
+    let foto = req.body.foto;
+  
+    let userData = { nome, email, senha, cpf, cod, foto };
+    
+  if(validarUser(cpf,cod) == 0){
+    try {
+      await setUser(userData);
+      res.status(200).send('Usuário criado com sucesso!');
+    } catch (error) {
+      res.status(500).send('Erro ao criar usuário.');
+    }
+}
+else {
+    res.status(400).json({ message: "usuário já existente:"+validarUser(cpf,cod) });
+}
+  });
 
 
 app.get('/usuario/mostrar', async (req, res) => {

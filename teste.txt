@@ -50,3 +50,10 @@ cargo
   } catch (error) {
       res.status(500).json({ message: "Erro ao criar usuário", error: error.message });
   }
+
+
+  ensinamentos dessa cosia:
+
+  1- verificar as extensões(.js)
+  2- verificar se é objeto array ou unico
+  3- verificar o tipo da variável, sempre manda em String(Number() pra converter)

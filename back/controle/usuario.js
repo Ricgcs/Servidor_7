@@ -1,11 +1,20 @@
 import { conexao } from "../conexao.js";
 
-const con = await conexao(); // Obtém a conexão
+const con = await conexao(); 
 
+export const validarUser = async (cod_empr, cpf) => {
+    const va = 'SELECT COUNT(Nome) AS count FROM cliente WHERE Empresa_Cod_empresa = ? AND CPF = ?';
+
+        const [results] = await con.query(va, [cod_empr, cpf]);
+        const count = results[0].count; // Acessa o valor do COUNT(Nome) na primeira linha dos resultados
+        console.log(count);
+        return count;
+  
+}
 export const getUser = async () => {
     try {
         const sql = "SELECT * FROM cliente";
-        const rows = await con.query(sql); // Executa a query e armazena o resultado em 'rows'
+        const rows = await con.query(sql); 
         console.log("Consulta realizada com sucesso:", rows);
         
     } catch (error) {
@@ -15,7 +24,8 @@ export const getUser = async () => {
 };
 
 export const setUser = async ({ nome, email, senha, cpf, cod, foto }) => {
-    const con = await conexao(); // Função para obter a conexão do banco de dados
+    const con = await conexao();
+  
     try {
         const [result] = await con.execute(
             'INSERT INTO cliente (Nome, Email, Senha, CPF, Empresa_Cod_empresa,foto)VALUES (?, ?, ?, ?, ?, ?)',
@@ -25,7 +35,9 @@ export const setUser = async ({ nome, email, senha, cpf, cod, foto }) => {
     } catch (error) {
         console.error('Erro ao inserir usuário:', error.message);
         throw error;
-    }
+    
+}
+
 };
 
 
