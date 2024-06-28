@@ -57,3 +57,5 @@ cargo
   1- verificar as extensões(.js)
   2- verificar se é objeto array ou unico
   3- verificar o tipo da variável, sempre manda em String(Number() pra converter)
+  4- Para pegar o retorno de uma função armazene ela dentro de uma variável
+  5- Caso precise pegar só o valor de um comando mysql salve-o como array e acesse a posição 0
