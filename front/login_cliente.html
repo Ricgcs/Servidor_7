@@ -32,10 +32,12 @@
 <div id="corpo">
     <img id="img_form" src="img/logo_inteiro.png" alt="logo">
     <h1 id="Nome_img">InovaWorks</h1>
-<form>
-   
-    <input type="text" placeholder="Nome" required>
-    <input type="password" placeholder="Senha" required>
+
+
+<form action="http://localhost:3000/usuario/logar" method="post">
+    <input type="number" placeholder="codigo empresa" name="cod"  required>
+    <input type="text" placeholder="Nome" name="nome"  required>
+    <input type="password" placeholder="Senha" name="senha" required>
     <button type="submit" id="corpo_button_cadastrar">Login</button>
     
 </form>

@@ -2,15 +2,44 @@ import { conexao } from "../conexao.js";
 
 const con = await conexao(); 
 
-export const validarUser = async (cod_empr, cpf) => {
-    const va = 'SELECT COUNT(Nome) AS count FROM cliente WHERE Empresa_Cod_empresa = ? AND CPF = ?';
 
-        const [results] = await con.query(va, [cod_empr, cpf]);
-        const count = results[0].count; // Acessa o valor do COUNT(Nome) na primeira linha dos resultados
+
+
+export const validarUser = async (cod_empr, cpf) => {
+    const validar = 'SELECT COUNT(Nome) AS count FROM cliente WHERE Empresa_Cod_empresa = ? AND CPF = ?';
+
+        const [results] = await con.query(validar, [cod_empr, cpf]);
+        const count = results[0].count; 
         console.log(count);
         return count;
   
 }
+
+export const login = async (cod, nome, senha) => {
+ 
+    try {
+        const sql = "SELECT * FROM cliente";
+        const rows = await con.query(sql); 
+        
+        let a;
+let b = 0;
+
+
+       for(a = 0; a < rows[0].length ;a++){
+
+      if(rows[0][a].Empresa_Cod_empresa == cod && rows[0][a].Nome == nome && rows[0][a].Senha == senha){
+       
+    return 1;
+      }
+       }
+
+    } catch (error) {
+        console.error("Erro no select_user", error);
+      
+    }
+}
+
+
 export const getUser = async () => {
     try {
         const sql = "SELECT * FROM cliente";

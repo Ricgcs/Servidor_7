@@ -1,11 +1,13 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { atualizar, procurar, setUser, getUser, delUser, validarUser} from "../back/controle/usuario.js";
-import { atualizarProd, procurarProd, setProd, getProd, delProd} from "../back/controle/produtos.js";
-import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr} from "../back/controle/empresa.js";
-import { atualizarCargo, procurarCargo, setCarg, getCarg, delCarg} from "../back/controle/cargo.js";
-import { atualizarFunc, procurarFunc, setFunc, getFunc, delFunc} from "../back/controle/funcionario.js";
-
+import { atualizar, procurar, setUser, getUser, delUser, validarUser, login } from "../back/controle/usuario.js";
+import { atualizarProd, procurarProd, setProd, getProd, delProd } from "../back/controle/produtos.js";
+import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr } from "../back/controle/empresa.js";
+import { atualizarCargo, procurarCargo, setCarg, getCarg, delCarg } from "../back/controle/cargo.js";
+import { atualizarFunc, procurarFunc, setFunc, getFunc, delFunc } from "../back/controle/funcionario.js";
+import { __dirname } from "../nomeArquivo.js";
+import path from 'path';
+import fs from 'fs';
 
 const host = "127.0.0.1";
 const porta = 3000;
@@ -13,9 +15,11 @@ const user = "localhost";
 const app = express();
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-//------------------------------------------------usuário---------------------------------------------------------
+app.use(express.static(path.join(__dirname, 'front')));
+app.use(express.static(path.join(__dirname, 'front','img')));
+//-----------------------------------------------usuário---------------------------------------------------------
 app.get('/teste', async (req, res) => {
     let cod_em = Number(req.body.cod_empr);
     let cpf = Number(req.body.cpf);
@@ -56,7 +60,7 @@ else {
 
 
 app.get('/usuario/mostrar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body; 
 console.log(valor, nome)
     try {
         const resultado = await procurar({ valor, nome});
@@ -68,7 +72,7 @@ console.log(valor, nome)
 
 
 app.post('/usuario/atualizar', async (req, res) => {
-    const { valor, nome, tipo, ent} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome, tipo, ent} = req.body; 
 console.log(valor, nome,tipo, ent)
     try {
         const resultado = await atualizar(valor, nome, tipo, ent)
@@ -79,7 +83,7 @@ console.log(valor, nome,tipo, ent)
 });
 
 app.post('/usuario/deletar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body; 
 console.log(valor, nome)
     try {
         const resultado = await delUser(valor, nome)
@@ -93,9 +97,37 @@ app.get('/usuario/mostrar_todos', async (req, res) => {
  getUser()
 });
 
-//-------------------------------------------------Produto---------------------------------------------------------
+app.post('/usuario/logar', async (req, res) => {
+    const cod = Number(req.body.cod);
+    const nome = req.body.nome;
+    const senha = req.body.senha;
+    let envio = { cod, nome, senha };
+
+    try {
+        let teste = await login(envio.cod, envio.nome, envio.senha);
+        if (teste == 1) {
+            const filePath = path.join(__dirname, 'front', 'sobre_nos.html');
+            const imagem = path.join(__dirname,'front', 'img');
+            fs.readFile(filePath, 'utf8', (err, data) => {
+                if (err) {
+                    res.status(500).send('Erro ao ler o arquivo');
+                    return;
+                }
+
+                res.status(200).send(data); // Envia o conteúdo do arquivo como resposta
+            });
+        } else {
+            res.status(401).send('Login falhou');
+        }
+    } catch (err) {
+        res.status(500).send('Erro no servidor');
+    }
+});
+
+
+//-----------------------------------------------Produto---------------------------------------------------------
 app.post('/produto', async (req, res) => {
-    const { nome, valor, quantidade, area, cod_empr, foto } = req.body; // Supondo que esses são os parâmetros esperados
+    const { nome, valor, quantidade, area, cod_empr, foto } = req.body; 
 
     try {
         const resultado = await setProd({ nome, valor, quantidade, area, cod_empr, foto });
@@ -107,7 +139,7 @@ app.post('/produto', async (req, res) => {
 
 
 app.get('/produto/mostrar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body; 
 console.log(valor, nome)
     try {
         const resultado = await procurarProd({ valor, nome});
@@ -119,7 +151,7 @@ console.log(valor, nome)
 
 
 app.post('/produto/atualizar', async (req, res) => {
-    const { valor, nome, tipo, ent} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome, tipo, ent} = req.body; 
 console.log(valor, nome,tipo, ent)
     try {
         const resultado = await atualizarProd(valor, nome, tipo, ent)
@@ -130,7 +162,7 @@ console.log(valor, nome,tipo, ent)
 });
 
 app.post('/produto/deletar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body; 
 console.log(valor, nome)
     try {
         const resultado = await delProd(valor, nome)
@@ -144,9 +176,9 @@ console.log(valor, nome)
 app.get('/produto/mostrar_todos', async (req, res) => {
  getProd()
 });
-//------------------------------------------------------Empresa------------------------------------------------------------
+//-----------------------------------------------Empresa------------------------------------------------------------
 app.post('/empresa', async (req, res) => {
-    const {Nome, RS, Email, CNPJ, Senha, Foto } = req.body; // Supondo que esses são os parâmetros esperados
+    const {Nome, RS, Email, CNPJ, Senha, Foto } = req.body; 
 
     try {
         const resultado = await setEmpr({Nome, RS, Email, CNPJ, Senha, Foto});
@@ -158,7 +190,7 @@ app.post('/empresa', async (req, res) => {
 
 
 app.get('/empresa/mostrar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body;
 console.log(valor, nome)
     try {
         const resultado = await procurarEmp({ valor, nome});
@@ -170,7 +202,7 @@ console.log(valor, nome)
 
 
 app.post('/empresa/atualizar', async (req, res) => {
-    const { valor, nome, tipo, ent} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome, tipo, ent} = req.body;
 console.log(valor, nome,tipo, ent)
     try {
         const resultado = await atualizarEmp(valor, nome, tipo, ent)
@@ -181,7 +213,7 @@ console.log(valor, nome,tipo, ent)
 });
 
 app.post('/empresa/deletar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body;
 console.log(valor, nome)
     try {
         const resultado = await delEmpr(valor, nome)
@@ -195,10 +227,10 @@ console.log(valor, nome)
 app.get('/empresa/mostrar_todos', async (req, res) => {
  getEmpresa()
 });
-//--------------------------------------------------------------Cargo--------------------------------------------------------
+//-----------------------------------------------Cargo--------------------------------------------------------
 
 app.post('/cargo', async (req, res) => {
-    const {Nome, Salario, Cod_empresa } = req.body; // Supondo que esses são os parâmetros esperados
+    const {Nome, Salario, Cod_empresa } = req.body;
 
     try {
         const resultado = await setCarg({Nome, Salario, Cod_empresa });
@@ -210,7 +242,7 @@ app.post('/cargo', async (req, res) => {
 
 
 app.get('/cargo/mostrar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body;
 console.log(valor, nome)
     try {
         const resultado = await procurarCargo({ valor, nome});
@@ -222,7 +254,7 @@ console.log(valor, nome)
 
 
 app.post('/cargo/atualizar', async (req, res) => {
-    const { valor, nome, tipo, ent} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome, tipo, ent} = req.body;
 console.log(valor, nome,tipo, ent)
     try {
         const resultado = await atualizarCargo(valor, nome, tipo, ent)
@@ -233,7 +265,7 @@ console.log(valor, nome,tipo, ent)
 });
 
 app.post('/cargo/deletar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body;
 console.log(valor, nome)
     try {
         const resultado = await delCarg(valor, nome)
@@ -248,10 +280,10 @@ app.get('/cargo/mostrar_todos', async (req, res) => {
  getCarg()
 });
 
-//----------------------------------------------------------Funcionário------------------------------------------
+//---------------------------------------------Funcionário------------------------------------------
 
 app.post('/funcionario', async (req, res) => {
-    const {Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha } = req.body; // Supondo que esses são os parâmetros esperados
+    const {Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha } = req.body;
 console.log(Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha )
     try {
         const resultado = await setFunc({Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha});
@@ -263,7 +295,7 @@ console.log(Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha )
 
 
 app.get('/funcionario/mostrar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body;
 console.log(valor, nome)
     try {
         const resultado = await procurarFunc({ valor, nome});
@@ -275,7 +307,7 @@ console.log(valor, nome)
 
 
 app.post('/funcionario/atualizar', async (req, res) => {
-    const { valor, nome, tipo, ent} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome, tipo, ent} = req.body;
 console.log(valor, nome,tipo, ent)
     try {
         const resultado = await atualizarFunc(valor, nome, tipo, ent)
@@ -286,7 +318,7 @@ console.log(valor, nome,tipo, ent)
 });
 
 app.post('/funcionario/deletar', async (req, res) => {
-    const { valor, nome} = req.body; // Usar req.query para parâmetros de consulta em uma requisição GET
+    const { valor, nome} = req.body;
 console.log(valor, nome)
     try {
         const resultado = await delFunc(valor, nome)
