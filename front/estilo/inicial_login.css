@@ -1,0 +1,197 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body{
+    background-color: #0A0403;
+   position: fixed;
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
+}
+
+#cabecalho{
+    padding: 1vw;
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header_inovaworks{
+    color: white;
+    font-size: 1.5vw;
+    font-family: 'moul';
+}
+
+#header_links{
+margin-left: -10vw;
+width: 30%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+}
+
+#header_button{
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrate';
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#header_user{
+ margin-right: 1vw;
+}
+
+#centro{
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+}
+
+
+section{
+    height: 80%;
+}
+
+#s1{
+    width: 25%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+   
+}
+
+#s2{
+    width: 50%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+}
+
+#s3{
+    
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+#fluxo_caixa_button{
+    background-color: rgb(75, 70, 70);
+   font-size: 1.4vw;
+    color:white;
+    border-radius: 1vw;
+    width: 11vw;
+    margin-left: 10%;
+    text-align: left;
+    padding:1vw;
+}
+
+#servico_button{
+    background-color: rgb(75, 70, 70);
+   font-size: 1.6vw;
+    color:white;
+    border-radius: 1vw;
+    padding: 1vw;
+    margin-left: 10%;
+    width: 10vw;
+}
+
+#entrega_button{
+    background-color: rgb(75, 70, 70);
+   font-size: 1.6vw;
+    color:white;
+    border-radius: 1vw;
+    padding: 1vw;
+    margin-left: 10%;
+    width: 10vw;
+}
+
+#orcamento_button{
+    background-color: rgb(75, 70, 70);
+   font-size: 1.6vw;
+    color:white;
+    border-radius: 1vw;
+    padding: 1vw;
+    margin-left: 10%;
+    width: 10vw;
+    
+}
+
+#estoque_button{
+    background-color: rgb(75, 70, 70);
+   font-size: 1.6vw;
+    color:white;
+    border-radius: 1vw;
+    padding: 1vw;
+    margin-left: 10%;
+    width: 10vw;
+}
+
+#imagem_logo_cadastrado{
+    width: 27.5%;
+    height: 46%;
+}
+
+#nome_cadastrado{
+    color: white;
+}
+
+#texto_s1{
+    color: white;
+    margin-left: 2.7vw;
+}
+
+#ultimos_clientes{
+    background-color: rgb(150, 62, 12);
+    height: 75%;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    border-radius: 2%;
+    color: white;
+  
+    
+}
+
+#texto_cliente{
+    color:white;
+    margin-top: 2vw;
+    font-size: 2vw;
+}
+
+#link_agenda{
+    margin-top: 1vw;
+    width: 75%;
+}
+
+#agenda_button{
+    background-color: rgb(75, 70, 70);
+   font-size: 1.6vw;
+    color:white;
+    border-radius: 1vw;
+    padding: 1vw;
+    width: 100%;
+}

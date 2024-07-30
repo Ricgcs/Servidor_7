@@ -63,3 +63,8 @@ cargo
      *eu não sei por que mas ele coloca os valores pegos do Banco de dados e o coloca dentro de 2 arrays, acho que é porque
      ele pega todos os valores do banco coloca dentro de um array e depois pega o objeto individualmente e coloca dentro de outro tipo assim
      [ [{valor1}], [{valor2}], [{valor3}]]
+7-não esquecer de instalar o ejs, ele serve para integrar o node com o html
+8- VERIFICA COMO TA ENVIANDO SE É ARRAY OBJ OU QUE COISA QUE funcionario
+9-FINALMENTE entendi a diferença entre const e let, const basicamente torna a função constante, ou seja ela basicamente existe pensa em algo
+que é verdadeiro, ou seja, quando eu declarar uma função em uma variável const ela ja vai ser chamada(verdadeira), se eu colocar como let pensa como se
+foçe algo que precisa ser comprovado, então se eu declaro uma função do tipo let(ou var) ela precisa ser chamada(comprovada) depois no código. 

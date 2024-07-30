@@ -8,28 +8,30 @@ import { atualizarFunc, procurarFunc, setFunc, getFunc, delFunc } from "../back/
 import { __dirname } from "../nomeArquivo.js";
 import path from 'path';
 import fs from 'fs';
+import { isUtf8 } from "buffer";
 
 const host = "127.0.0.1";
 const porta = 3000;
 const user = "localhost";
 const app = express();
 
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'front')));
-app.use(express.static(path.join(__dirname, 'front','img')));
-//-----------------------------------------------usuário---------------------------------------------------------
+app.use(express.static(path.join(__dirname,'front')));
+
+//-----------------------------------------------usuário---------------------------------------------------------\\
 app.get('/teste', async (req, res) => {
     let cod_em = Number(req.body.cod_empr);
     let cpf = Number(req.body.cpf);
 
     try {
         const count = await validarUser(cod_em, cpf);
-        if (count === 0) {
+        if (count == 0) {
             res.send("funciona");
         } else {
-            res.send(`Usuário já existente: ${count}`);
+            res.send(`Usuário já existente: codigo_empresa(${cod_em}); cpf(${cpf}) `);
         }
     } catch (error) {
         res.status(500).send('Erro ao validar usuário.');
@@ -44,8 +46,9 @@ app.post('/usuario', async (req, res) => {
     let foto = req.body.foto;
   
     let userData = { nome, email, senha, cpf, cod, foto };
-    
-  if(validarUser(cpf,cod) == 0){
+    const empresa = await procurarEmp({proc:"Nome_fantasia",valor:"Cod_empresa", nome: cod});
+
+  if(await validarUser(cpf,cod) == 0){
     try {
       await setUser(userData);
       res.status(200).send('Usuário criado com sucesso!');
@@ -54,7 +57,8 @@ app.post('/usuario', async (req, res) => {
     }
 }
 else {
-    res.status(400).json({ message: "usuário já existente:"+validarUser(cpf,cod) });
+
+    res.status(400).json({ message: `usuário ja existe na empresa: ${empresa}`});
 }
   });
 
@@ -106,26 +110,24 @@ app.post('/usuario/logar', async (req, res) => {
     try {
         let teste = await login(envio.cod, envio.nome, envio.senha);
         if (teste == 1) {
-            const filePath = path.join(__dirname, 'front', 'sobre_nos.html');
-            const imagem = path.join(__dirname,'front', 'img');
-            fs.readFile(filePath, 'utf8', (err, data) => {
-                if (err) {
-                    res.status(500).send('Erro ao ler o arquivo');
-                    return;
-                }
-
-                res.status(200).send(data); // Envia o conteúdo do arquivo como resposta
-            });
+          
+            const inicial = path.join(__dirname,'/front','/inicial_login.html')
+     
+      res.sendFile(inicial)
+res.redirect(`/inicial_login.html?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}`);
+      
         } else {
-            res.status(401).send('Login falhou');
+            res.status(401).send('usuário não encontrado');
         }
+
     } catch (err) {
+        console.log(err);
         res.status(500).send('Erro no servidor');
     }
 });
 
 
-//-----------------------------------------------Produto---------------------------------------------------------
+//-----------------------------------------------Produto---------------------------------------------------------\\
 app.post('/produto', async (req, res) => {
     const { nome, valor, quantidade, area, cod_empr, foto } = req.body; 
 
@@ -176,7 +178,8 @@ console.log(valor, nome)
 app.get('/produto/mostrar_todos', async (req, res) => {
  getProd()
 });
-//-----------------------------------------------Empresa------------------------------------------------------------
+//-----------------------------------------------Empresa------------------------------------------------------------\\
+
 app.post('/empresa', async (req, res) => {
     const {Nome, RS, Email, CNPJ, Senha, Foto } = req.body; 
 
@@ -227,7 +230,7 @@ console.log(valor, nome)
 app.get('/empresa/mostrar_todos', async (req, res) => {
  getEmpresa()
 });
-//-----------------------------------------------Cargo--------------------------------------------------------
+//-----------------------------------------------Cargo--------------------------------------------------------\\
 
 app.post('/cargo', async (req, res) => {
     const {Nome, Salario, Cod_empresa } = req.body;
@@ -280,7 +283,7 @@ app.get('/cargo/mostrar_todos', async (req, res) => {
  getCarg()
 });
 
-//---------------------------------------------Funcionário------------------------------------------
+//---------------------------------------------Funcionário------------------------------------------\\
 
 app.post('/funcionario', async (req, res) => {
     const {Nome, Email, Telefone, foto, CPF, Cod_empresa, Cod_cargo, senha } = req.body;

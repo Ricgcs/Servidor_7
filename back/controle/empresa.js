@@ -31,8 +31,8 @@ export const setEmpr = async ({Nome, RS, Email, CNPJ, Senha, Foto}) => {
 
 export const delEmpr = async(valor,nome)=>{
     try{
-const sql = `DELETE FROM Empresa WHERE ${valor} = ?`
-const envio = await con.query(sql,nome)
+const sql = `DELETE FROM Empresa WHERE ? = ?`
+const envio = await con.query(sql,valor,nome)
 console.log("Empresa deletada com sucesso", envio)
     }
     catch(error){
@@ -41,19 +41,23 @@ console.log("Empresa deletada com sucesso", envio)
     }
 }
 
-export const procurarEmp = async ({ valor, nome }) => {
+export const procurarEmp = async ({ proc, valor, nome }) => {
     const con = await conexao();
+   
     try {
-        const [rows] = await con.query(
-            `SELECT * FROM Empresa WHERE ${valor} = ?`,
-            [nome]
-        );
-        return rows;
+        let sql = `SELECT ${proc} FROM Empresa WHERE ${valor} = ?`;
+
+        const [rows] = await con.query(sql,[nome]);
+        return rows[0][proc];
     } catch (error) {
-        console.error('Erro ao procurar empresa:', error.message);
+        console.error('Erro ao procurar empresa:', error.message,`valor:${valor}`);
+        
         throw error;
     }
 };
+
+
+
 export const atualizarEmp = async(valor, elemento, ent, tipo)=>{
 
     try{
@@ -65,4 +69,5 @@ console.log("Empresa atualizada",upp);
         console.log("erro em atualizar",error)
     }
 }
+
 
