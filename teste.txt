@@ -70,14 +70,23 @@ que é verdadeiro, ou seja, quando eu declarar uma função em uma variável con
 foçe algo que precisa ser comprovado, então se eu declaro uma função do tipo let(ou var) ela precisa ser chamada(comprovada) depois no código. 
 
 10-SÓ PRA NÃO ESQUECER
-echo "# Servidor_3" >> README.md
+echo "# Servidor_7" >> README.md
 git init
-git add .
+git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/Ricgcs/Servidor_3.git
+git remote add origin https://github.com/Ricgcs/Servidor_7.git
 git push -u origin main
-…or push an existing repository from the command line
-git remote add origin https://github.com/Ricgcs/Servidor_3.git
+
+git remote add origin https://github.com/Ricgcs/Servidor_7.git
 git branch -M main
 git push -u origin main
+
+
+11-Para trocar o repositório:
+git remote set-url origin https://github.com/Ricgcs/Servidor_7.git
+
+git remote -v
+
+12-Grandes arquivos:
+git lfs install
