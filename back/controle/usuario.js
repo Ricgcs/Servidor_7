@@ -2,17 +2,13 @@ import { conexao } from "../conexao.js";
 
 const con = await conexao(); 
 
-
-
-
 export const validarUser = async (cod_empr, cpf) => {
     const validar = 'SELECT COUNT(Nome) AS count FROM cliente WHERE Empresa_Cod_empresa = ? AND CPF = ?';
 
         const [results] = await con.query(validar, [cod_empr, cpf]);
         const count = results[0].count; 
         console.log(count);
-        return count;
-  
+        return count; 
 }
 
 export const login = async (cod, nome, senha) => {
@@ -82,13 +78,17 @@ console.log("valor deletado com sucesso", envio)
     }
 }
 
-export const procurar = async ({ valor, nome }) => {
+export const procurar = async (what,valor, nome ) => {
     const con = await conexao();
+
+
+    
     try {
         const [rows] = await con.query(
-            `SELECT * FROM cliente WHERE ${valor} = ?`,
+            `SELECT ${what} FROM cliente WHERE ${valor} = ?`,
             [nome]
         );
+       
         return rows;
     } catch (error) {
         console.error('Erro ao procurar usuário:', error.message);

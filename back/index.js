@@ -6,7 +6,7 @@ import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr } from "../back
 import { atualizarCargo, procurarCargo, setCarg, getCarg, delCarg } from "../back/controle/cargo.js";
 import { atualizarFunc, procurarFunc, setFunc, getFunc, delFunc } from "../back/controle/funcionario.js";
 import { __dirname } from "../nomeArquivo.js";
-import path from 'path';
+import path, { dirname } from 'path';
 import fs from 'fs';
 import { isUtf8 } from "buffer";
 
@@ -106,15 +106,19 @@ app.post('/usuario/logar', async (req, res) => {
     const nome = req.body.nome;
     const senha = req.body.senha;
     let envio = { cod, nome, senha };
-
+    
     try {
+
         let teste = await login(envio.cod, envio.nome, envio.senha);
         if (teste == 1) {
           
-            const inicial = path.join(__dirname,'/front','/inicial_login.html')
-     
+            const inicial = path.join(__dirname,'front','inicial_login.html');
       res.sendFile(inicial)
-res.redirect(`/inicial_login.html?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}`);
+      const foto =await procurar('foto','nome',nome);
+     
+res.redirect(`/inicial_login.html?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}$foto=${encodeURIComponent(foto)}`);
+
+
       
         } else {
             res.status(401).send('usuário não encontrado');

@@ -21,7 +21,14 @@
 </div>
 
 <div id="header_user">
-<a href=""><button>teste</button></a>
+<img id="img_user" src="" alt="imagem_usuario">
+<div id="header_config">
+<h1 id="nome_user"></h1>
+<a id="link_user" href="#">configuração</a>
+</div>
+
+
+</a>
 </div>
 
 </header>
@@ -43,7 +50,7 @@
 
 <section id="s2">
     <img id="imagem_logo_cadastrado" src="/img/logo_inteiro.png" alt="logo">
-<h1 id="nome_cadastrado">ola Fulano tudo bem?</h1>
+<h1 id="nome_cadastrado"></h1>
 </section>
 
 
@@ -56,5 +63,17 @@
     <a href="#" id="link_agenda"><button id="agenda_button">agenda</button></a>
 </section>
 </div>
+<script type="text/javascript">
+   const urlParams = new URLSearchParams(window.location.search);
+   const nome = urlParams.get('nome');
+   const foto = urlParams.get('foto');
+    document.getElementById('img_user').src = foto;
+   document.getElementById('nome_user').textContent = nome;
+   document.getElementById('nome_cadastrado').textContent = "Ola "+nome+" tudo bem";
+   const div = document.createElement('div');
+        div.textContent = nome; 
+        div.classList.add('clientes'); 
+        document.getElementById('ultimos_clientes').appendChild(div);   
+</script>
 </body>
 </html>
