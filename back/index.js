@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { atualizar, procurar, setUser, getUser, delUser, validarUser, login } from "../back/controle/usuario.js";
+import { atualizar, procurar, setUser, getUser, delUser, validarUser, login,qtd_clientes } from "../back/controle/usuario.js";
 import { atualizarProd, procurarProd, setProd, getProd, delProd } from "../back/controle/produtos.js";
 import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr } from "../back/controle/empresa.js";
 import { atualizarCargo, procurarCargo, setCarg, getCarg, delCarg } from "../back/controle/cargo.js";
@@ -48,7 +48,7 @@ app.post('/usuario', async (req, res) => {
     let userData = { nome, email, senha, cpf, cod, foto };
     const empresa = await procurarEmp({proc:"Nome_fantasia",valor:"Cod_empresa", nome: cod});
 
-  if(await validarUser(cpf,cod) == 0){
+  if(await validarUser(cod,cpf) == 0){
     try {
       await setUser(userData);
       res.status(200).send('Usuário criado com sucesso!');
@@ -105,31 +105,25 @@ app.post('/usuario/logar', async (req, res) => {
     const cod = Number(req.body.cod);
     const nome = req.body.nome;
     const senha = req.body.senha;
+    const cod_empresa = req.body.Cod_empresa
     let envio = { cod, nome, senha };
-    
-    try {
+    const nc = await qtd_clientes();
 
+    try {
         let teste = await login(envio.cod, envio.nome, envio.senha);
         if (teste == 1) {
-          
-            const inicial = path.join(__dirname,'front','inicial_login.html');
-      res.sendFile(inicial)
-      const foto =await procurar('foto','nome',nome);
-     
-res.redirect(`/inicial_login.html?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}$foto=${encodeURIComponent(foto)}`);
-
-
-      
+            const inicial = path.join(__dirname, 'front', 'inicial_login.html');
+            const foto = await procurar('foto', 'nome', nome);
+            const queryParams = `?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}&nc=${nc}&foto=${encodeURIComponent(foto)}`;
+            res.redirect(`/inicial_login.html${queryParams}`);
         } else {
             res.status(401).send('usuário não encontrado');
         }
-
     } catch (err) {
         console.log(err);
         res.status(500).send('Erro no servidor');
     }
 });
-
 
 //-----------------------------------------------Produto---------------------------------------------------------\\
 app.post('/produto', async (req, res) => {

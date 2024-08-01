@@ -95,6 +95,19 @@ export const procurar = async (what,valor, nome ) => {
         throw error;
     }
 };
+
+
+
+export const qtd_clientes = async () => {
+    const con = await conexao();
+
+        const [rows] = await con.query('SELECT COUNT(Nome) AS count FROM cliente');
+        const count = rows[0].count;
+        return count;
+   
+};
+
+
 export const atualizar = async(valor, elemento, ent, tipo)=>{
 
     try{

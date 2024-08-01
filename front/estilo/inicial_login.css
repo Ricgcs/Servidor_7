@@ -22,26 +22,29 @@ body{
 }
 
 #cabecalho{
-    padding: 1vw;
+    
     background-color: black;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1vw;
 }
 
 #header_inovaworks{
     color: white;
     font-size: 1.5vw;
     font-family: 'moul';
+    
 }
 
 #header_links{
-margin-left: -10vw;
+
 width: 30%;
 display: flex;
 align-items: center;
 justify-content: space-between;
+margin-left: 1vw;
 
 }
 
@@ -91,18 +94,19 @@ section{
 }
 
 #fluxo_caixa_button{
-    background-color: rgb(75, 70, 70);
-    font-size: 1.4vw;
-    color:white;
-    border-radius: 1vw;
-    width: 11vw;
-    margin-left: 10%;
-    text-align: left;
-    padding:1vw;
+    background: rgba(70, 67, 65, 1);
+
+    font-size: 1.2vw;
+     color:white;
+     border-radius: 1vw;
+     padding: 1vw;
+     margin-left: 10%;
+     width: 10vw;
 }
 
 #servico_button{
-    background-color: rgb(75, 70, 70);
+    background: rgba(70, 67, 65, 1);
+
    font-size: 1.6vw;
     color:white;
     border-radius: 1vw;
@@ -112,7 +116,8 @@ section{
 }
 
 #entrega_button{
-    background-color: rgb(75, 70, 70);
+    background: rgba(70, 67, 65, 1);
+
    font-size: 1.6vw;
     color:white;
     border-radius: 1vw;
@@ -122,7 +127,8 @@ section{
 }
 
 #orcamento_button{
-    background-color: rgb(75, 70, 70);
+    background: rgba(70, 67, 65, 1);
+
    font-size: 1.6vw;
     color:white;
     border-radius: 1vw;
@@ -133,7 +139,8 @@ section{
 }
 
 #estoque_button{
-    background-color: rgb(75, 70, 70);
+    background: rgba(70, 67, 65, 1);
+
    font-size: 1.6vw;
     color:white;
     border-radius: 1vw;
@@ -144,7 +151,7 @@ section{
 
 #imagem_logo_cadastrado{
     width: 27.5%;
-    height: 46%;
+    height: 40%;
 }
 
 #nome_cadastrado{
@@ -161,9 +168,11 @@ section{
     height: 75%;
     width: 75%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     border-radius: 2%;
     color: white;
+    overflow: auto;
   
     
 }
@@ -192,11 +201,21 @@ section{
 display: flex;
 margin-top: 10%;
 height: 10%;
-width: 90%;
-background-color: rgb(75, 70, 70);
-border-radius: 2%;
-padding: 2%;
-font-size:2vw;
+width: 80%;
+background: rgba(70, 67, 65, 1);
+border-radius: 4%;
+padding: 4%;
+font-size:1.8vw;
+align-items: center;
+justify-content: center;
+}
+.imagem_teste{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+margin-left: 10%;
+
 
 }
 
@@ -207,15 +226,31 @@ font-size:2vw;
 
 #header_user{
     display: flex;
-    margin-right: 1vw;
+    margin-right:-2vw;
+
    }
 
    #img_user{
+    display: inline;
     color: white;
+margin-top: -0,6vw;
+width: 15%;
+height: 15%;
+
    }
 #link_user{
     color:white;
 }
 #header_config{
     
+}
+
+#imagem{
+height: 1vw;
+width: 1vw;
+}
+
+a{
+display: flex;
+text-decoration: none;
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/img/logo_inteiro.png">
     <link rel="stylesheet" href="/estilo/inicial_login.css">
-    <title>Bem vindo</title>
+    <title id="titulo"></title>
 </head>
 <body>
 <header id = "cabecalho">
@@ -13,11 +13,11 @@
 <h1 id="header_inovaworks">InovaWorks</h1>
 
 <div id="header_links">
-<a href="#"><button id="header_button">Home</button></a>
-<a href="#"><button id="header_button">Serviços</button></a>
-<a href="#"><button id="header_button">Estoque</button></a>
-<a href="#"><button id="header_button">Ajuda</button></a>
-<a href="#"><button id="header_button">Log out</button></a>
+<a href="#"><img id="imagem" src="/img/home.png" alt="servicos"><button id="header_button"><img src="/front/img/" alt=""> Home</button></a>
+<a href="#"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
+<a href="#"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
+<a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
+<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
 </div>
 
 <div id="header_user">
@@ -64,16 +64,57 @@
 </section>
 </div>
 <script type="text/javascript">
-   const urlParams = new URLSearchParams(window.location.search);
-   const nome = urlParams.get('nome');
-   const foto = urlParams.get('foto');
-    document.getElementById('img_user').src = foto;
-   document.getElementById('nome_user').textContent = nome;
-   document.getElementById('nome_cadastrado').textContent = "Ola "+nome+" tudo bem";
-   const div = document.createElement('div');
-        div.textContent = nome; 
-        div.classList.add('clientes'); 
-        document.getElementById('ultimos_clientes').appendChild(div);   
+    const urlParams = new URLSearchParams(window.location.search);
+    const nome = urlParams.get('nome');
+    const foto = urlParams.get('foto');
+    const nome_mostrar = nome.split(" ");
+    const estado_foto = document.getElementById('img_user').alt;
+    const div = document.createElement('div');
+    const img = document.createElement('img');
+    const nc = urlParams.get('nc');
+  
+     
+     document.getElementById('img_user').src = foto;
+
+
+if (nome_mostrar[1] !== undefined) {
+    document.getElementById('nome_user').textContent = nome_mostrar[0] + " " + nome_mostrar[1];
+    document.getElementById('nome_cadastrado').textContent = "Olá " + nome_mostrar[0] + " " + nome_mostrar[1] + ", tudo bem";
+} else {
+    document.getElementById('nome_user').textContent = nome_mostrar[0];
+    document.getElementById('nome_cadastrado').textContent = "Olá " + nome_mostrar[0];
+}
+
+for (let a = 0; a < nc; a++) {
+        const div = document.createElement('div');
+        div.classList.add('clientes');
+
+        const img = document.createElement('img');
+        img.classList.add('imagem_teste');
+        img.alt = "imagem_usuario";
+        img.src = "/img/imagem_user.png";
+        const nomeCliente = document.createElement('p');
+        nomeCliente.textContent = nome_mostrar[0];
+
+     
+        div.appendChild(nomeCliente);
+        div.appendChild(img);
+ 
+
+        document.getElementById('ultimos_clientes').appendChild(div);
+    }
+
+
+if (estado_foto === "imagem_usuario") {
+    document.getElementById('img_user').src = '/img/imagem_user.png';
+    const imgs = document.querySelectorAll('.imagem_teste');
+    imgs.forEach(img => img.src = '/img/imagem_user.png');
+} else {
+    document.getElementById('nome_user').textContent = estado_foto;
+}
+
+
+document.getElementById('titulo').textContent = "Bem-vindo(a) " + nome_mostrar[0];
 </script>
 </body>
 </html>
