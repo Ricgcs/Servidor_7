@@ -32,14 +32,14 @@
 <div id="corpo">
     <img id="img_form" src="img/logo_inteiro.png" alt="logo">
     <h1 id="Nome_img">InovaWorks</h1>
-<form>
+<form action="http://localhost:3000/empresa" method="post">
    
-    <input type="text" placeholder="Nome fantasia" required>
-    <input type="text" placeholder="Razão social" required>
-    <input type="email" placeholder="Email" required>
-    <input type="number" placeholder="CNPJ" required>
-    <input type="password" placeholder="Senha" required>
-    <input type="password" placeholder="Confirmar senha" required>
+    <input type="text" placeholder="Nome_fantasia" name="Nome_fantasia" required>
+    <input type="text" placeholder="Razao_social" name="Razao_social" required>
+    <input type="email" placeholder="Email" name="Email" required>
+    <input type="number" placeholder="CNPJ" name="CNPJ" required>
+    <input type="password" placeholder="Senha" name="Senha" required>
+    <input type="file" placeholder="imagem" name="Foto" required>
     <button type="submit" id="corpo_button_cadastrar">Cadastrar</button>
     
 </form>

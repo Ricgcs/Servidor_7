@@ -179,10 +179,16 @@ app.get('/produto/mostrar_todos', async (req, res) => {
 //-----------------------------------------------Empresa------------------------------------------------------------\\
 
 app.post('/empresa', async (req, res) => {
-    const {Nome, RS, Email, CNPJ, Senha, Foto } = req.body; 
 
+    let nome = req.body.Nome_fantasia;
+    let RS = req.body.Razao_social;
+    let email = req.body.Email;
+    let CNPJ = Number(req.body.CNPJ);
+    let Senha = req.body.Senha;
+    let Foto = req.body.Foto;
+console.log({nome,RS,email,CNPJ,Senha,Foto});
     try {
-        const resultado = await setEmpr({Nome, RS, Email, CNPJ, Senha, Foto});
+        const resultado = await setEmpr(nome, RS, email, CNPJ, Senha, Foto);
         res.status(201).json({ message: "Empresa criada com sucesso", data: resultado });
     } catch (error) {
         res.status(500).json({ message: "Erro ao criar a empresa", error: error.message });
