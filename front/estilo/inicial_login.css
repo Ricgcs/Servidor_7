@@ -140,13 +140,15 @@ section{
 
 #estoque_button{
     background: rgba(70, 67, 65, 1);
-
-   font-size: 1.6vw;
+align-items: center;
+display: flex;
+justify-content: space-around;
+   font-size: 1.9vw;
     color:white;
     border-radius: 1vw;
-    padding: 1vw;
+    padding: 0.5vw;
     margin-left: 10%;
-    width: 10vw;
+    width: 16vw;
 }
 
 #imagem_logo_cadastrado{
@@ -253,4 +255,11 @@ width: 1vw;
 a{
 display: flex;
 text-decoration: none;
+}
+
+#imagem_canto_logado{
+    width: 30%;
+    height: 80%;
+  
+    display: inline;
 }
