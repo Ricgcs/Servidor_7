@@ -1,0 +1,196 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body{
+    background-color: #0A0403;
+   position: fixed;
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
+}
+
+#cabecalho{
+    
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+}
+
+#header_inovaworks{
+    color: white;
+    font-size: 1.5vw;
+    font-family: 'moul';
+    
+}
+
+#header_links{
+
+width: 30%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-left: 1vw;
+
+}
+
+#header_button{
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrate';
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+.imagem_teste{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+margin-left: 10%;
+
+
+}
+
+#nome_user{
+    font-size: 1vw;
+    color: white;
+}
+
+#header_user{
+    display: flex;
+    margin-right:-2vw;
+
+   }
+
+   #img_user{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+height: 15%;
+
+   }
+#link_user{
+    color:white;
+}
+#header_config{
+    
+}
+
+#imagem{
+height: 1vw;
+width: 1vw;
+}
+
+a{
+display: flex;
+text-decoration: none;
+}
+
+
+#corpo{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#items{
+    height: 90%;
+    width: 50%;
+
+ 
+}
+
+#ps{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 7%;
+}
+
+#i1{
+width:  50%;
+border: none;
+background: rgba(171, 161, 161, 1);
+color: #0A0403;
+font-size: 1vw;
+border-radius: 0.5vw;
+padding: 0.5vw;
+}
+
+#i2{
+width: 30%;
+border: none;
+background: rgba(171, 161, 161, 1);
+font-size: 1vw;
+border-radius: 0.5vw;
+padding: 0.5vw;
+
+
+
+}
+
+#regua{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 3vw;
+    background: rgba(218, 66, 0, 1);
+    margin-top: 1vw;
+    padding: 0.5vw;
+    height: 10%;
+
+}
+
+#campos{
+    font-family: 'Montserrate';
+    font-size: 1.5vw;
+    
+}
+
+#valores{
+    overflow: auto;
+    height: 80%;
+    width: 100%;
+    margin-top: 1vw;
+   
+}
+
+#modelo{
+    display: flex;
+    width: 100%;
+    background-color: white;
+    justify-content: space-around;
+    font-family: 'Montserrate';
+    height: 10%;
+    border-radius: 0.7vw;
+}
+
+#modelo_valores{
+    margin-left: 2vw;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    font-size: 1vw;
+}

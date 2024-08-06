@@ -1,0 +1,153 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body{
+    background-color: #0A0403;
+   position: fixed;
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
+}
+
+#cabecalho{
+    
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+}
+
+#header_inovaworks{
+    color: white;
+    font-size: 1.5vw;
+    font-family: 'moul';
+    
+}
+
+#header_links{
+
+width: 30%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-left: 1vw;
+
+}
+
+#header_button{
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrate';
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+.imagem_teste{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+margin-left: 10%;
+
+
+}
+
+#nome_user{
+    font-size: 1vw;
+    color: white;
+}
+
+#header_user{
+    display: flex;
+    margin-right:-2vw;
+
+   }
+
+   #img_user{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+height: 15%;
+
+   }
+#link_user{
+    color:white;
+}
+#header_config{
+    
+}
+
+#imagem{
+height: 1vw;
+width: 1vw;
+}
+
+a{
+display: flex;
+text-decoration: none;
+}
+
+
+#corpo{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+#produtos{
+    background: rgba(255, 77, 0, 0.85);
+    font-family: 'Montserrat';
+    color:white;
+    padding: 1vw;
+    border-radius: 1vw;
+    width: 100%;
+    font-size: 3vw;
+
+}
+
+#compras{
+    background: rgba(255, 77, 0, 0.85);
+    font-family: 'Montserrat';
+    color:white;
+    font-size: 3vw;
+    padding: 1vw;
+    border-radius: 1vw;
+    width: 100%;
+
+
+}
+
+#testea{
+    height: 20%;
+    width: 25%;
+   
+}
+
+#testeb{
+  height: 20%;
+  width: 25%;
+  margin-left: 8vw;
+ 
+}

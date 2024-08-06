@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilo/novo_produto.css">
+    <link rel="icon" href="/img/logo_inteiro.png">
+    <title>Novo_produto</title>
+</head>
+<body>
+    <header id = "cabecalho">
+
+        <h1 id="header_inovaworks">InovaWorks</h1>
+        
+        <div id="header_links">
+        <a href="/inicial_login.html"><img id="imagem" src="/img/home.png" alt="menu"><button id="header_button"><img src="/front/img/" alt=""> Home</button></a>
+        <a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
+        <a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
+        <a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
+        <a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+        </div>
+        
+        <div id="header_user">
+        <img id="img_user" src="" alt="imagem_usuario">
+        <div id="header_config">
+        <h1 id="nome_user"></h1>
+        <a id="link_user" href="#">configuração</a>
+        </div>
+        </div>
+        </header>
+    <div id="Formulario">
+        <head>
+            <h1 id="Cabecalho">Novo produto</hr></h1>
+        </head>
+
+        <section id="s1">
+            <div id="s1a">
+                <label id="s1l">Código do produto</label>
+                <input type="number" placeholder="Digite aqui">
+            </div>
+            <div id="s1b">
+                <label id="s1l">Fornecedor</label>
+                <input type="text" placeholder="Digite aqui">
+            </div>
+            <div id="s1b">
+                <label id="s1l">Nome do produto</label>
+            <input type="number" placeholder="Digite aqui" id="v2in"/>
+        </div>
+        </section>
+
+        <section id="s2">
+            <div id="valores">
+                <h1 id="vh2">Valor da ultima compra</h1>
+                <h1 id="vh3">Altura</h1>
+                <h1 id="vh4">Profundidade</h1>
+                <h1 id="vh5">Largura</h1>
+            </div>
+        </section>
+        <section id="s3">
+            <div id="v2">
+                <input type="text" placeholder="Digite aqui" id="v2in"/>
+           
+                <input type="text" placeholder="Digite aqui" id="v2in"/>
+                <select name="cars" id="">
+                    <option value="">MTS</option>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                <input type="text" placeholder="Digite aqui" id="v2in"/>
+                <select name="cars" id="">
+                    <option value="">MTS</option>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                <input type="text" placeholder="Digite aqui" id="v2in"/>
+                <select name="cars" id="">
+                    <option value="">MTS</option>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+            </div>
+        </section>
+        <div id="geral">
+            <div id="ultl">
+                <div id="ult">
+                  
+                </div>
+            
+        <footer>
+            <label id="lab1">Observações</label>
+            <div id="obs-wrapper">
+                <textarea id="obs" placeholder="Digite aqui..."></textarea>
+            </div>
+            
+            <button id="OBS_b"><a id="vai">Adicionar novo produto</a></button>
+        </footer>
+    </div>
+</body>
+<script>
+    const obsInput = document.getElementById('obs');
+
+    obsInput.addEventListener('input', function () {
+        obsInput.scrollTop = obsInput.scrollHeight;
+    });
+</script>
+</html>

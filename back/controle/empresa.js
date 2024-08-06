@@ -17,7 +17,7 @@ export const getEmpresa = async () => {
 export const setEmpr = async (Nome, RS, Email, CNPJ, Senha, Foto) => {
     const con = await conexao(); // Função para obter a conexão do banco de dados
     try {
-        const [result] = await con.execute(git
+        const [result] = await con.execute(
             'INSERT INTO Empresa (Nome_fantasia, Razao_social, Email, CNPJ, Senha, foto)VALUES (?, ?, ?, ?, ?, ?)',
             [Nome, RS, Email, CNPJ, Senha, Foto]
         );

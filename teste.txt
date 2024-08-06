@@ -90,3 +90,10 @@ git remote -v
 
 12-Grandes arquivos:
 git lfs install
+
+achei isso interessante:
+<form>
+  <input type="button" value="Start machine" accesskey="s" />
+</form>
+
+okok, o ivan me ajudou muito, sessões foi a ideia, e usar o localstorage 

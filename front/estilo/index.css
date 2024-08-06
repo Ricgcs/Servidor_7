@@ -1,0 +1,376 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
+}
+
+#cabecalho{
+    
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    
+}
+
+#header_inovaworks{
+    color: white;
+    font-size: 1.5vw;
+    font-family: 'moul';
+    margin-left: 1vw;
+    
+}
+
+#header_links{
+
+width: 30%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-left: 1vw;
+
+}
+
+#header_button{
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrate';
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+.imagem_teste{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+margin-left: 10%;
+
+
+}
+
+#nome_user{
+    font-size: 1vw;
+    color: white;
+}
+
+#header_user{
+    display: flex;
+    margin-right:-2vw;
+
+   }
+
+   #img_user{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+height: 15%;
+
+   }
+#link_user{
+    color:white;
+}
+#header_config{
+    
+}
+
+#imagem{
+height: 1vw;
+width: 1vw;
+}
+
+a{
+display: flex;
+text-decoration: none;
+}
+
+
+label{
+    font-size: 1vw;
+}
+h1{
+    font-size: 1vw;
+}
+a{
+    font-size: 1vw;
+}
+
+.menu_item {
+    position: relative;
+    margin: 0 1vw;
+}
+
+.menu_item::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: #ffffff;
+    transition: width 0.5s ease-in-out, left 0.5s ease-in-out;
+}
+
+.menu_item:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+input, textarea {
+    border-radius: 0.5vw;
+    border: 0.15vw solid black;
+    font-size: 1vw;
+    padding: 0.3vw;
+    background-color: #E7E7E7;
+    margin: 0 1vw 2vw 0;
+}
+
+body {
+    background-color: #0A0403;
+    align-items: center;  
+    position: fixed;
+     width:100%;
+     height: 100%;
+     display: flex;
+     flex-direction: column;
+     
+}
+
+#s2{
+    margin-top: -1vw;
+}
+div {
+    font-size: 0.6vw;
+    color: white;
+    background-color: black;
+    padding: 0.7vw;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#v2 {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+}
+
+#menu {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+#valores {
+    display: flex;
+    left: -200px;
+    background-color: #D9D9D9;
+    color: black;
+}
+
+#vh1 {}
+
+#vh2 {
+    margin-left: 2vw;
+}
+
+#vh3 {
+    margin-left: 7.9vw;
+}
+
+#vh4 {
+    margin-left: 5.8vw;
+}
+
+#vh5 {
+    margin-left: 5.7vw;
+}
+
+#menu {
+    margin: 0 0 5vw 0;
+}
+
+#Formulario {
+    color: black;
+    border-radius: 0.5vw;
+    background-color: white;
+    padding: 2.6vw;
+    width: 60%;
+    height: 90%;
+    
+}
+
+#lab1 {
+    display: block;
+    margin-top: -2vw;
+}
+
+#Cabecalho {
+    margin: -2vw 0 2vw 0;
+    font-size: 2vw;
+}
+
+hr {
+    width: 22.5%;
+}
+#s3{
+    margin-left: -0.59vw;
+
+}
+#Adicionar_itens {
+    background-color: #DA4200;
+    border-radius: 0.6vw;
+    padding: 0.4vw;
+    border: none;
+    margin-left: 0.74vw;
+}
+
+#geral {
+    background-color: transparent;
+    display: flex;
+    margin-left: -1.4vw;
+}
+
+#ult2 {
+    width: 30%;
+}
+
+#input_ult {
+    width: 100%;
+}
+
+label {
+    color: black;
+    
+}
+
+#obs-wrapper {
+    width: 60%;
+    height: 5vw;
+    
+    display: block;
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+}
+
+#obs {
+    width: 90%;
+    height: 90%;
+    border:0.2vw solid black;
+    overflow-y: scroll;
+    resize: none;
+    scrollbar-width: none; 
+}
+
+#obs::-webkit-scrollbar {
+    width: 0px; 
+}
+
+#menu_button:hover {}
+
+#menu_button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#cabeca_log {
+    color: white;
+}
+
+#s1 {
+    display: flex;
+    margin-top: -2vw;
+}
+
+#s1a {
+    background-color: transparent;
+}
+
+#s1b {
+    background-color: transparent;
+}
+
+#s1l {
+    color: black;
+    display: block;
+    font-size: small;
+    font-size: 1vw;
+}
+
+#vai {
+    cursor: pointer;
+}
+
+#v2in {
+    width: 80%;
+}
+
+#va {
+    display: block;
+}
+
+#vb {
+    display: block;
+}
+
+#vc {
+    display: block;
+}
+
+#vd {
+    display: block;
+}
+
+#ultl {
+    display: flex;
+    background: transparent;
+}
+
+#ult {
+    display: flex;
+    background-color: transparent;
+    margin-left: -1vw;
+    flex-wrap: wrap;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1vw;
+    background-color: white;
+    font-size: medium;
+    width: 15%;
+}
+
+#OBS_b {
+    background-color: #DA4200;
+    border-radius: 0.6vw;
+    padding: 0.5vw;
+    border: none;
+    margin-left: 1vw;
+}
+
+#OBS_a {
+    background-color: #DA4200;
+    border-radius: 0.5vw;
+    padding: 0.6vw;
+    border: none;
+    margin-left: 70%;
+}
+

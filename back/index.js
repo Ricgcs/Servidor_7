@@ -115,7 +115,8 @@ app.post('/usuario/logar', async (req, res) => {
             const inicial = path.join(__dirname, 'front', 'inicial_login.html');
             const foto = await procurar('foto', 'nome', nome);
             const queryParams = `?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}&nc=${nc}&foto=${encodeURIComponent(foto)}`;
-            res.redirect(`/inicial_login.html${queryParams}`);
+            res.redirect(`/inicial_login.html${queryParams}`);     
+            res.redirect(`/inicio_estoque.html${queryParams}`);
         } else {
             res.status(401).send('usuário não encontrado');
         }
@@ -136,6 +137,7 @@ app.post('/produto', async (req, res) => {
         res.status(500).json({ message: "Erro ao criar o produto", error: error.message });
     }
 });
+
 
 
 app.get('/produto/mostrar', async (req, res) => {
