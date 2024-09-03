@@ -44,7 +44,7 @@ app.post('/usuario', async (req, res) => {
     let cpf = Number(req.body.cpf);
     let cod = Number(req.body.cod_empr);
     let foto = req.body.foto;
-  
+
     let userData = { nome, email, senha, cpf, cod, foto };
     const empresa = await procurarEmp({proc:"Nome_fantasia",valor:"Cod_empresa", nome: cod});
 
@@ -98,14 +98,20 @@ console.log(valor, nome)
 });
 
 app.get('/usuario/mostrar_todos', async (req, res) => {
- getUser()
+    try {
+        const usuarios = await getUser();
+        res.json(usuarios);
+        console.log(usuarios) 
+    } catch (error) {
+        res.status(500).json({ error: "Erro ao obter usuários" });
+    }
 });
 
 app.post('/usuario/logar', async (req, res) => {
     const cod = Number(req.body.cod);
     const nome = req.body.nome;
     const senha = req.body.senha;
-    const cod_empresa = req.body.Cod_empresa
+    const cod_empresa = req.body.Cod_empresa;
     let envio = { cod, nome, senha };
     const nc = await qtd_clientes();
 
@@ -115,8 +121,8 @@ app.post('/usuario/logar', async (req, res) => {
             const inicial = path.join(__dirname, 'front', 'inicial_login.html');
             const foto = await procurar('foto', 'nome', nome);
             const queryParams = `?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}&nc=${nc}&foto=${encodeURIComponent(foto)}`;
-            res.redirect(`/inicial_login.html${queryParams}`);     
-            res.redirect(`/inicio_estoque.html${queryParams}`);
+            res.redirect(`/inicial_login.html${queryParams}`);
+            return;
         } else {
             res.status(401).send('usuário não encontrado');
         }

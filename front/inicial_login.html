@@ -64,57 +64,49 @@
 </section>
 </div>
 <script type="text/javascript">
-    const urlParams = new URLSearchParams(window.location.search);
-    const nome = urlParams.get('nome');
-    const foto = urlParams.get('foto');
-    const nome_mostrar = nome.split(" ");
-    const estado_foto = document.getElementById('img_user').alt;
-    const div = document.createElement('div');
-    const img = document.createElement('img');
-    const nc = urlParams.get('nc');
-  
-     
-     document.getElementById('img_user').src = foto;
+    async function carregarUsuarios() {
+        try {
+            const response = await fetch('http://localhost:3000/usuario/mostrar_todos');
+            const data = await response.json();
 
+            // Verificando a estrutura do que é retornado
+            console.log('Dados recebidos:', data);
 
-if (nome_mostrar[1] !== undefined) {
-    document.getElementById('nome_user').textContent = nome_mostrar[0] + " " + nome_mostrar[1];
-    document.getElementById('nome_cadastrado').textContent = "Olá " + nome_mostrar[0] + " " + nome_mostrar[1] + ", tudo bem";
-} else {
-    document.getElementById('nome_user').textContent = nome_mostrar[0];
-    document.getElementById('nome_cadastrado').textContent = "Olá " + nome_mostrar[0];
-}
+            // Verificando se o dado recebido é realmente um array de usuários
+            if (!Array.isArray(data)) {
+                throw new Error('A resposta do servidor não é um array de usuários.');
+            }
 
-for (let a = 0; a < nc; a++) {
-        const div = document.createElement('div');
-        div.classList.add('clientes');
+            const antigos_usuarios = document.getElementById('ultimos_clientes');
 
-        const img = document.createElement('img');
-        img.classList.add('imagem_teste');
-        img.alt = "imagem_usuario";
-        img.src = "/img/imagem_user.png";
-        const nomeCliente = document.createElement('p');
-        nomeCliente.textContent = nome_mostrar[0];
+            data.forEach(user => {
+                const div = document.createElement('div');
+                div.classList.add('clientes');
 
-     
-        div.appendChild(nomeCliente);
-        div.appendChild(img);
- 
+                const img = document.createElement('img');
+                img.classList.add('imagem_teste');
+                img.alt = "imagem_usuario";
+                img.src = "/img/imagem_user.png";
 
-        document.getElementById('ultimos_clientes').appendChild(div);
+                const nomeCliente = document.createElement('p');
+                let nome = user.nome || user.nome_cliente || user.NOME || 'Nome não encontrado';
+
+                nomeCliente.textContent = nome;
+                div.appendChild(nomeCliente);
+                div.appendChild(img);
+
+                antigos_usuarios.appendChild(div);
+            });
+        } catch (error) {
+            const errorDiv = document.createElement('div');
+            errorDiv.textContent = 'Erro ao carregar os usuários: ' + error.message;
+            document.getElementById('ultimos_clientes').appendChild(errorDiv);
+            console.error('Erro ao carregar os usuários:', error);
+        }
     }
 
-
-if (estado_foto === "imagem_usuario") {
-    document.getElementById('img_user').src = '/img/imagem_user.png';
-    const imgs = document.querySelectorAll('.imagem_teste');
-    imgs.forEach(img => img.src = '/img/imagem_user.png');
-} else {
-    document.getElementById('nome_user').textContent = estado_foto;
-}
-
-
-document.getElementById('titulo').textContent = "Bem-vindo(a) " + nome_mostrar[0];
+    carregarUsuarios();
 </script>
+    
 </body>
 </html>

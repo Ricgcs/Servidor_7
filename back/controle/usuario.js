@@ -40,7 +40,8 @@ export const getUser = async () => {
     try {
         const sql = "SELECT * FROM cliente";
         const rows = await con.query(sql); 
-        console.log("Consulta realizada com sucesso:", rows);
+        console.log("Consulta realizada com sucesso");
+        return (rows);
         
     } catch (error) {
         console.error("Erro no select_user", error);
