@@ -1,6 +1,6 @@
 import express from 'express';
 import { conexao } from './conexao.js';
-import { getUser } from './controle/usuario.js'; // Corrigir caminho relativo
+import { getUser } from './controle/usuario.js'; 
 
 const app = express();
 const port = 3000;

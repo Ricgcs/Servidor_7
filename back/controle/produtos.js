@@ -1,11 +1,11 @@
 import { conexao } from "../conexao.js";
 
-const con = await conexao(); // Obtém a conexão
+const con = await conexao();
 
 export const getProd = async () => {
     try {
         const sql = "SELECT * FROM Produto";
-        const rows = await con.query(sql); // Executa a query e armazena o resultado em 'rows'
+        const rows = await con.query(sql); 
         console.log("Consulta realizada com sucesso:", rows);
         
     } catch (error) {
@@ -15,7 +15,7 @@ export const getProd = async () => {
 };
 
 export const setProd = async ({ nome, valor, quantidade, area, cod_empr, foto }) => {
-    const con = await conexao(); // Função para obter a conexão do banco de dados
+    const con = await conexao();
     try {
         const [result] = await con.execute(
             'INSERT INTO Produto (Nome, Valor, Quantidade, Area, Empresa_Cod_empresa,foto)VALUES (?, ?, ?, ?, ?, ?)',

@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import fileUpload  from 'express-fileupload';
 import { atualizar, procurar, setUser, getUser, delUser, validarUser, login,qtd_clientes } from "../back/controle/usuario.js";
 import { atualizarProd, procurarProd, setProd, getProd, delProd } from "../back/controle/produtos.js";
 import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr } from "../back/controle/empresa.js";
@@ -15,7 +16,7 @@ const porta = 3000;
 const user = "localhost";
 const app = express();
 
-
+app.use(fileUpload());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -37,31 +38,22 @@ app.get('/teste', async (req, res) => {
         res.status(500).send('Erro ao validar usuário.');
     }
 });
-app.post('/usuario', async (req, res) => {
-    let nome = req.body.nome;
-    let email = req.body.email;
-    let senha = req.body.senha;
-    let cpf = Number(req.body.cpf);
-    let cod = Number(req.body.cod_empr);
-    let foto = req.body.foto;
+app.post('/usuario', upload.single('foto_perfil'), async (req, res) => {
+    const { nome, email, senha, cpf, codigo_empresa } = req.body;
+    const foto_perfil = req.file;
 
-    let userData = { nome, email, senha, cpf, cod, foto };
-    const empresa = await procurarEmp({proc:"Nome_fantasia",valor:"Cod_empresa", nome: cod});
+    let fotoBase64 = foto_perfil ? foto_perfil.buffer.toString('base64') : null;
 
-  if(await validarUser(cod,cpf) == 0){
+    let userData = { nome, email, senha, cpf, codigo_empresa, foto: fotoBase64 };
+
     try {
-      await setUser(userData);
-      res.status(200).send('Usuário criado com sucesso!');
+        await setUser(userData);
+        res.status(200).send('Usuário criado com sucesso!');
     } catch (error) {
-      res.status(500).send('Erro ao criar usuário.');
+        console.error('Erro ao criar usuário:', error);
+        res.status(500).send('Erro ao criar usuário.');
     }
-}
-else {
-
-    res.status(400).json({ message: `usuário ja existe na empresa: ${empresa}`});
-}
-  });
-
+});
 
 app.get('/usuario/mostrar', async (req, res) => {
     const { valor, nome} = req.body; 
@@ -99,14 +91,14 @@ console.log(valor, nome)
 
 app.get('/usuario/mostrar_todos', async (req, res) => {
     try {
-        const usuarios = await getUser();
-        console.log(usuarios);  
-        
-        res.json(usuarios);
+      const usuarios = await getUser();  
+      console.log('Usuários encontrados:', usuarios); 
+      res.status(200).json(usuarios);  
     } catch (error) {
-        res.status(500).json({ error: "Erro ao obter usuários" });
+      console.error('Erro ao buscar todos os usuários:', error);
+      res.status(500).json({ message: "Erro ao buscar todos os usuários", error: error.message });
     }
-});
+  });
 
 app.post('/usuario/logar', async (req, res) => {
     const cod = Number(req.body.cod);
