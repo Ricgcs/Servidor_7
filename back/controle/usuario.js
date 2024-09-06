@@ -35,20 +35,21 @@ let b = 0;
     }
 }
 
-
-export const getUser = async () => {
+export const getUser = async (res) => {
     try {
         const sql = "SELECT * FROM cliente";
-        const rows = await con.query(sql); 
+        const [rows] = await con.query(sql); 
         console.log("Consulta realizada com sucesso");
-        return (rows);
-        
+        return rows;
     } catch (error) {
         console.error("Erro no select_user", error);
-        res.status(500).json({ error: "Erro ao obter usuários" });
+        if (res) {
+            res.status(500).json({ error: "Erro ao obter usuários" });
+        } else {
+            throw error;
+        }
     }
 };
-
 export const setUser = async ({ nome, email, senha, cpf, cod, foto }) => {
     const con = await conexao();
   
