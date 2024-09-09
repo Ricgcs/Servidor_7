@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/estilo/cadastro_produto.css">
+    <link rel="icon" href="/img/logo_inteiro.png">
+    <title>Novo produto</title>
+</head>
+<body>
+    <header id="cabecalho">
+        <h1 id="header_inovaworks">InovaWorks</h1>
+        
+        <div id="header_links">
+            <a href="/inicial_login.html"><img id="imagem" src="/img/home.png" alt="menu"><button id="header_button">Home</button></a>
+            <a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
+            <a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
+            <a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
+            <a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+        </div>
+        
+        <div id="header_user">
+            <img id="img_user" src="" alt="imagem_usuario">
+            <div id="header_config">
+                <h1 id="nome_user"></h1>
+                <a id="link_user" href="#">configuração</a>
+            </div>
+        </div>
+    </header>
+
+    <div id="Formulario">
+        <h1 id="Cabecalho">Novo produto</h1>
+
+        <section id="s1">
+            <div id="s1b">
+                <label id="s1l">Nome do produto</label>
+                <input id="nome_produto" type="text" placeholder="Digite o nome do produto">
+            </div>
+            <div id="s1b">
+                <label id="s1l">Quantidade</label>
+                <input id="quantidade" type="text" placeholder="Digite a quantidade">
+            </div>
+            <div id="s1b">
+                <label id="s1l">Valor</label>
+                <input id="valor" type="text" placeholder="Digite o valor">
+            </div>
+        </section>
+
+        <section id="s2">
+            <div id="valores">
+                <h1 id="vh2">Altura</h1>
+                <h1 id="vh3">Profundidade</h1>
+                <h1 id="vh5">Largura</h1>
+            </div>
+        </section>
+
+        <section id="s3">
+            <div id="v2">
+                <input id="altura" type="text" placeholder="Digite a altura">
+                <input id="profundidade" type="text" placeholder="Digite a profundidade">
+                <input id="largura" type="text" placeholder="Digite a largura">
+            </div>
+        </section>
+
+        <footer>
+            <label id="lab1">Observações</label>
+            <div id="obs-wrapper">
+                <textarea id="obs"></textarea>
+            </div>
+            <button id="OBS_a">Adicionar novo produto</button>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const saveToLocalStorage = () => {
+                const params = new URLSearchParams(window.location.search);
+                const nomeUser = params.get('nome') || '';
+                const empresaUser = params.get('cod_empresa') || '';
+
+                if (nomeUser.trim() !== '') {
+                    localStorage.setItem('nome_user', nomeUser);
+                    localStorage.setItem('cod_empresa', empresaUser);
+                }
+            };
+
+            const loadFromLocalStorage = () => {
+                const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+                const nomeUserElement = document.getElementById('nome_user');
+                if (nomeUserElement) {
+                    const primeiroNome = nomeUser.split(" ")[0];
+                    nomeUserElement.textContent = `${primeiroNome}`;
+                }
+
+                const imgUserElement = document.getElementById('img_user');
+                if (imgUserElement) {
+                    imgUserElement.src = "/img/imagem_user.png";
+                }
+            };
+
+            saveToLocalStorage();
+            loadFromLocalStorage();
+
+            const obsInput = document.getElementById('obs');
+            if (obsInput) {
+                obsInput.addEventListener('input', function () {
+                    obsInput.scrollTop = obsInput.scrollHeight;
+                });
+            }
+
+            // Função para capturar os dados dos inputs e chamar a rota com fetch
+            const button = document.getElementById('OBS_a');
+            button.addEventListener('click', async () => {
+                const nome = document.getElementById('nome_produto').value;
+                const quantidade = document.getElementById('quantidade').value;
+                const valor = document.getElementById('valor').value;
+                const altura = document.getElementById('altura').value;
+                const profundidade = document.getElementById('profundidade').value;
+                const largura = document.getElementById('largura').value;
+                const cod_empr = localStorage.getItem('cod_empresa');
+                const cod_emprLimpo = parseInt(cod_empr.replace(/[^0-9]/g, ''), 10);
+                console.log(cod_emprLimpo)
+
+
+               
+                const url = `/produto/${nome}/${valor}/${quantidade}/${cod_emprLimpo}/${altura}/${profundidade}/${largura}`;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert(result.message); 
+                    } else {
+                        alert('Erro ao adicionar produto');
+                    }
+                } catch (error) {
+                    console.error('Erro na requisição:', error);
+                    alert('Erro ao adicionar produto');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

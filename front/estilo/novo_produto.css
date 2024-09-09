@@ -78,9 +78,9 @@ margin-left: 10%;
    #img_user{
     display: inline;
     color: white;
-margin-top: -0,6vw;
-width: 15%;
-height: 15%;
+    margin-top: -0,6vw;
+    width: 15%;
+    height: 15%;
 
    }
 #link_user{
@@ -182,7 +182,9 @@ div {
     color: black;
 }
 
-#vh1 {}
+#vh1 {
+
+}
 
 #vh2 {
     margin-left: 2vw;
@@ -269,19 +271,22 @@ label {
 }
 
 #obs {
-    width: 90%;
-    height: 90%;
-    border:0.2vw solid black;
+    width: 73%;
+    height: 100%;
     overflow-y: scroll;
     resize: none;
     scrollbar-width: none; 
+    padding: 10%;
+    margin: 0px;
 }
 
 #obs::-webkit-scrollbar {
     width: 0px; 
 }
 
-#menu_button:hover {}
+#menu_button:hover {
+
+}
 
 #menu_button {
     background-color: transparent;
@@ -315,6 +320,7 @@ label {
 
 #vai {
     cursor: pointer;
+    display: flex;
 }
 
 #v2in {
@@ -366,6 +372,8 @@ label {
     padding: 0.5vw;
     border: none;
     margin-left: 1vw;
+    margin-top: 1vw;
+    display: inline;
 }
 
 #OBS_a {
@@ -374,6 +382,8 @@ label {
     padding: 0.6vw;
     border: none;
     margin-left: 70%;
+    display: inline;
+
 }
 
 select{
@@ -382,4 +392,12 @@ select{
     width: 5.1vw;
     font-size: 1.5vw;
     border-radius: 1vw;
+}
+
+
+footer{
+    position: absolute;
+    height: 100%;
+    width: 60%;
+    
 }

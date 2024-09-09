@@ -1,0 +1,269 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body{
+    background-color: #0A0403;
+   position: fixed;
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
+}
+
+#cabecalho{
+    
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+}
+
+#header_inovaworks{
+    color: white;
+    font-size: 1.5vw;
+    font-family: 'moul';
+    
+}
+
+#header_links{
+
+width: 30%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-left: 1vw;
+
+}
+
+#header_button{
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrate';
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#centro{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+
+section{
+    height: 80%;
+}
+
+#s1{
+    width: 20%;
+    margin-left: 2vw;
+
+   }
+
+#s2{
+   width: 80%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   
+}
+
+
+#estoque_button{
+        background: rgba(70, 67, 65, 1);
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.6vw;
+        color:white;
+        border-radius: 1vw;
+        margin-left: 10%;
+        width: 16vw;
+}
+
+#imagem_logo_cadastrado{
+    width: 15%;
+    height: 30%;   
+}
+
+#nome_cadastrado{
+    color: white;
+}
+
+#texto_s1{
+    color: white;
+    margin-left: 2.7vw;
+}
+
+
+#texto_cliente{
+    color:white;
+    margin-top: 2vw;
+    font-size: 2vw;
+}
+
+
+.clientes {
+    display: flex;
+    margin-top: 10%;
+    height: 10%;
+    width: 80%;
+    background: rgba(70, 67, 65, 1);
+    border-radius: 4%;
+    padding: 4%;
+    font-size:1.8vw;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.imagem_teste{
+    display: inline;
+    color: white;
+    margin-top: -0,6vw;
+    width: 15%;
+    margin-left: 10%;
+
+
+}
+
+#nome_user{
+    font-size: 1vw;
+    color: white;
+}
+
+#header_user{
+    display: flex;
+    margin-right:-2vw;
+
+   }
+
+#img_user{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+height: 15%;
+
+   }
+#link_user{
+    color:white;
+}
+#header_config{
+    
+}
+
+#imagem{
+height: 1vw;
+width: 1vw;
+}
+
+a{
+display: flex;
+text-decoration: none;
+}
+
+#imagem_canto_logado{
+    width: 30%;
+    height: 80%;
+    display: inline;
+}
+
+#pesquisa{
+    display: flex;
+    height: 10%;
+    width: 100%;
+ 
+}
+
+
+#produtos{
+    color: white;
+    font-size: 3vw;
+    margin-left: 1.5vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#pesquisa_input{
+    border-radius:0.4vw ;
+    background: #DBDBDB;
+    color:black;
+    font-family: 'maun';
+    height: 60%;
+    width: 80%;
+    display: flex;
+    margin-top: 5%;
+}
+
+#pesquisa_input::placeholder{
+    font-size: 1vw;
+}
+#img_pesquisa{
+    height: 60%;
+    display: flex;
+    margin-top: 40%;
+
+}
+
+#button_pesquisa{
+    background-color: transparent;
+    display: flex;
+}
+
+.pesquisa_div{
+    border-radius: 0.5vw;
+    color: rgb(255, 255, 255);
+    background: rgba(56, 56, 56, 1);
+    width: 100%;
+    height: 3.6vw;
+    display: flex;
+    margin-top: 5%;
+    align-items: center;
+    padding: 2%;
+    font-size: 150%;
+}
+
+#produtos_cadastrados{
+    overflow:auto;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   width: 100%;
+}
+
+footer{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    background-color: white;
+
+    
+}
+
+#btn_footer{
+    background: rgba(250, 90, 0, 1);
+    font-size: 1.3vw;
+    border-radius: 1vw;
+    padding: 0.9vw;
+    position: fixed;
+    right: 10vw;
+    bottom:5vw;
+    font-family: Arial, Helvetica, sans-serif;
+}

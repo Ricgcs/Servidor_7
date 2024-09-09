@@ -94,61 +94,74 @@ section{
 }
 
 #fluxo_caixa_button{
-    background: rgba(70, 67, 65, 1);
+        background: rgba(70, 67, 65, 1);
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        text-align: left;
+        color:white;
+        border-radius: 1vw;
+        padding: 0.5vw;
+        margin-left: 10%;
+        width: 16vw;
+}
 
-    font-size: 1.2vw;
-     color:white;
-     border-radius: 1vw;
-     padding: 1vw;
-     margin-left: 10%;
-     width: 10vw;
+#texto_fluxo_caixa{
+    font-size: 1.7vw;
+    font-weight:normal;
+    margin-right: -1%;
 }
 
 #servico_button{
-    background: rgba(70, 67, 65, 1);
-
-   font-size: 1.6vw;
-    color:white;
-    border-radius: 1vw;
-    padding: 1vw;
-    margin-left: 10%;
-    width: 10vw;
+        background: rgba(70, 67, 65, 1);
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.6vw;
+        color:white;
+        border-radius: 1vw;
+        padding: 0vw;
+        margin-left: 10%;
+        width: 16vw;
 }
 
 #entrega_button{
-    background: rgba(70, 67, 65, 1);
-
-   font-size: 1.6vw;
-    color:white;
-    border-radius: 1vw;
-    padding: 1vw;
-    margin-left: 10%;
-    width: 10vw;
+        background: rgba(70, 67, 65, 1);
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.6vw;
+        color:white;
+        border-radius: 1vw;
+        padding: 0.5vw;
+        margin-left: 10%;
+        width: 16vw;
 }
 
 #orcamento_button{
-    background: rgba(70, 67, 65, 1);
-
-   font-size: 1.6vw;
-    color:white;
-    border-radius: 1vw;
-    padding: 1vw;
-    margin-left: 10%;
-    width: 10vw;
+        background: rgba(70, 67, 65, 1);
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.6vw;
+        color:white;
+        border-radius: 1vw;
+        padding: 0.6vw;
+        margin-left: 10%;
+        width: 16vw;
     
 }
 
 #estoque_button{
-    background: rgba(70, 67, 65, 1);
-align-items: center;
-display: flex;
-justify-content: space-around;
-   font-size: 1.9vw;
-    color:white;
-    border-radius: 1vw;
-    padding: 0.5vw;
-    margin-left: 10%;
-    width: 16vw;
+        background: rgba(70, 67, 65, 1);
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.6vw;
+        color:white;
+        border-radius: 1vw;
+        margin-left: 10%;
+        width: 16vw;
 }
 
 #imagem_logo_cadastrado{

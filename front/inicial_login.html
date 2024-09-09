@@ -35,13 +35,13 @@
 <div id="centro">
 <section id="s1">
 <h1 id="texto_s1"> Outras opções</h1>
-<a href="#"><button id="fluxo_caixa_button">Fluxo de caixa</button></a>
+<a href="#"><button id="fluxo_caixa_button"><h1 id="texto_fluxo_caixa">Fluxo de caixa</h1><img id="imagem_canto_logado" src="/img/acoes.png" alt="fluxo_caixa"></button></a>
 
-<a href="/index.html"><button id="servico_button">Serviços</button></a>
+<a href="/index.html"><button id="servico_button">Serviços<img id="imagem_canto_logado" src="/img/martelinho.png" alt="Serviços"></button></a>
 
-<a href="#"><button id="entrega_button">Entregas</button></a>
+<a href="#"><button id="entrega_button">Entregas<img id="imagem_canto_logado" src="/img/frete.png" alt="Entregas"></button></a>
 
-<a href="/incio_estoque.html"><button id="orcamento_button">Orçamentos</button></a>
+<a href="/orcamento.html"><button id="orcamento_button">Orçamentos<img id="imagem_canto_logado" src="/img/calc.png" alt="Orçamentos"></button></a>
 
 <a href="/estoque.html"><button id="estoque_button">Estoque<img id="imagem_canto_logado" src="/img/armazen.png" alt="estoque"></button></a>
 
@@ -63,62 +63,102 @@
     <a href="#" id="link_agenda"><button id="agenda_button">agenda</button></a>
 </section>
 </div>
+
+
 <script type="text/javascript">
-const teste = async () => {
-  try {
-    const retorno = await fetch('http://localhost:3000/usuario/mostrar_todos'); // Chama o endpoint para buscar todos os usuários
-    const valor = await retorno.json(); 
-    console.log('Dados recebidos do backend:', valor);  // Log para verificar o retorno da API
-    return valor;  // Supondo que o retorno é um array de objetos de usuários
-  } catch (error) {
-    console.error('Erro ao buscar os dados:', error); 
-  }
-};
+ document.addEventListener('DOMContentLoaded', () => {
+  const saveToLocalStorage = () => {
+    const params = new URLSearchParams(window.location.search);
+    const nomeUser = params.get('nome') || '';
+    const empresaUser = params.get('cod_empresa');
+    // Verifica se o nomeUser está vazio
+    if (nomeUser.trim() !== '') { 
+      localStorage.setItem('nome_user', nomeUser);
+      localStorage.setItem('cod_empresa',empresaUser)
 
-teste().then((usuarios) => {
-  console.log('Lista de usuários:', usuarios);  // Verificar a lista de usuários
-  let tamanho = usuarios.length;
-
-  const antigos_usuarios = document.getElementById('ultimos_clientes');
-  antigos_usuarios.innerHTML = ''; 
-
-  if (tamanho > 0) {
-    for (let a = 0; a < tamanho; a++) {
-      const div = document.createElement('div');
-      div.classList.add('clientes');
-
-      const img = document.createElement('img');
-      img.classList.add('imagem_teste');
-
-      
-      if (usuarios[a].foto) {
-        img.src = "/img/imagem_user.png";   
-      } else {
-        img.src = "/img/imagem_user.png"; 
-      }
-      
-      img.alt = usuarios[a].Nome || "Imagem do usuário";
-
-      const nomeCliente = document.createElement('p');
-let nome_filtrar = usuarios[a].Nome.split(" ");  
-let nome = nome_filtrar[0];  
-
-      console.log("Nome do usuário:", nome); 
-      nomeCliente.textContent = nome;
-      div.appendChild(nomeCliente);
-      div.appendChild(img);
-
-      antigos_usuarios.appendChild(div);
     }
-  } else {
-    const mensagem = document.createElement('p');
-    mensagem.textContent = 'Nenhum usuário Cadastrado';
-    antigos_usuarios.appendChild(mensagem);
-  }
-}).catch((error) => {
-  console.error('Erro ao executar teste:', error);
+  };
+
+  // Função para recuperar e exibir dados do localStorage
+  const loadFromLocalStorage = () => {
+    const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+
+    // Atualiza o DOM com os dados do localStorage
+    const nomeCadastroElement = document.getElementById('nome_cadastrado');
+    if (nomeCadastroElement) {
+      nomeCadastroElement.innerHTML = `Bem-vindo ${nomeUser}`;
+    }
+
+    const nomeUserElement = document.getElementById('nome_user');
+    if (nomeUserElement) {
+      const primeiroNome = nomeUser.split(" ")[0];
+      nomeUserElement.innerHTML = `${primeiroNome}`;
+    }
+
+    const imgUserElement = document.getElementById('img_user');
+    if (imgUserElement) {
+      imgUserElement.src = "/img/imagem_user.png";
+    }
+  };
+
+  // Salva os dados da URL no localStorage
+  saveToLocalStorage();
+
+  // Carrega os dados do localStorage e atualiza o DOM
+  loadFromLocalStorage();
+
+  // Função para buscar e exibir dados dos usuários
+  const fetchUsuarios = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/usuario/mostrar_todos');
+      if (!response.ok) {
+        throw new Error('Erro na resposta da rede');
+      }
+      const usuarios = await response.json();
+      console.log('Dados recebidos do backend:', usuarios);
+      return usuarios;
+    } catch (error) {
+      console.error('Erro ao buscar os dados:', error);
+    }
+  };
+
+  // Exibe os dados dos usuários na página
+  const displayUsuarios = (usuarios) => {
+    const tamanho = usuarios.length;
+    const antigos_usuarios = document.getElementById('ultimos_clientes');
+    antigos_usuarios.innerHTML = '';
+
+    if (tamanho > 0) {
+      usuarios.forEach(usuario => {
+        const div = document.createElement('div');
+        div.classList.add('clientes');
+
+        const img = document.createElement('img');
+        img.classList.add('imagem_teste');
+        img.src = usuario.foto ? "/img/imagem_user.png" : "/img/imagem_user.png"; 
+        img.alt = usuario.Nome || "Imagem do usuário";
+
+        const nomeCliente = document.createElement('p');
+        const nomeFiltrado = usuario.Nome.split(" ")[0];
+        nomeCliente.textContent = nomeFiltrado;
+
+        div.appendChild(nomeCliente);
+        div.appendChild(img);
+        antigos_usuarios.appendChild(div);
+      });
+    } else {
+      const mensagem = document.createElement('p');
+      mensagem.textContent = 'Nenhum usuário cadastrado';
+      antigos_usuarios.appendChild(mensagem);
+    }
+  };
+
+  // Busca e exibe os dados dos usuários
+  fetchUsuarios().then(displayUsuarios).catch(error => {
+    console.error('Erro ao executar fetchUsuarios:', error);
+  });
 });
-</script>
+  </script>
 
 </body>
 </html>

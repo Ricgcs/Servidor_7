@@ -8,7 +8,7 @@ export const conexao = async () => {
     const con = await mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: "ricardo",
+        password: "",
         database: "mydb",
     });
 

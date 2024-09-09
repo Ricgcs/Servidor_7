@@ -5,7 +5,7 @@ const con = await conexao();
 export const getProd = async () => {
     try {
         const sql = "SELECT * FROM Produto";
-        const rows = await con.query(sql); 
+        const [rows] = await con.query(sql); 
         console.log("Consulta realizada com sucesso:", rows);
         
     } catch (error) {
@@ -14,16 +14,17 @@ export const getProd = async () => {
     }
 };
 
-export const setProd = async ({ nome, valor, quantidade, area, cod_empr, foto }) => {
+export const setProd = async ( {nome, valor, quantidade,cod_empr, altura, comprimento, largura}) => {
     const con = await conexao();
     try {
         const [result] = await con.execute(
-            'INSERT INTO Produto (Nome, Valor, Quantidade, Area, Empresa_Cod_empresa,foto)VALUES (?, ?, ?, ?, ?, ?)',
-            [nome, valor, quantidade, area, cod_empr, foto ]
+            'INSERT INTO Produto (Nome, Valor, Quantidade, Empresa_Cod_empresa, Altura, Produtocol,Largura)VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [nome, valor, quantidade, cod_empr, altura, comprimento, largura ]
         );
         return result;
     } catch (error) {
         console.error('Erro ao inserir produto:', error.message);
+        console.log(nome, valor, quantidade,cod_empr, altura, comprimento, largura)
         throw error;
     }
 };
@@ -41,13 +42,15 @@ console.log("Produto deletado com sucesso", envio)
     }
 }
 
-export const procurarProd = async ({ valor, nome }) => {
+export const procurarProd = async (nome) => {
     const con = await conexao();
     try {
         const [rows] = await con.query(
-            `SELECT * FROM Produto WHERE ${valor} = ?`,
+            `SELECT * FROM Produto WHERE Empresa_Cod_empresa = ?`,
             [nome]
+           
         );
+
         return rows;
     } catch (error) {
         console.error('Erro ao procurar produto:', error.message);

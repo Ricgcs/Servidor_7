@@ -14,12 +14,12 @@ export const getEmpresa = async () => {
     }
 };
 
-export const setEmpr = async (Nome, RS, Email, CNPJ, Senha, Foto) => {
+export const setEmpr = async (Nome, RS, Email, CNPJ, Senha) => {
     const con = await conexao(); 
     try {
         const [result] = await con.execute(
-            'INSERT INTO Empresa (Nome_fantasia, Razao_social, Email, CNPJ, Senha, foto)VALUES (?, ?, ?, ?, ?, ?)',
-            [Nome, RS, Email, CNPJ, Senha, Foto]
+            'INSERT INTO Empresa (Nome_fantasia, Razao_social, Email, CNPJ, Senha)VALUES (?, ?, ?, ?, ?)',
+            [Nome, RS, Email, CNPJ, Senha]
         );
         return result;
     } catch (error) {

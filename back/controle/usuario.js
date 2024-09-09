@@ -2,10 +2,10 @@ import { conexao } from "../conexao.js";
 
 const con = await conexao(); 
 
-export const validarUser = async (cod_empr, cpf) => {
+export const validarUser = async (codigo_empresa, cpf) => {
     const validar = 'SELECT COUNT(Nome) AS count FROM cliente WHERE Empresa_Cod_empresa = ? AND CPF = ?';
 
-        const [results] = await con.query(validar, [cod_empr, cpf]);
+        const [results] = await con.query(validar, [codigo_empresa, cpf]);
         const count = results[0].count; 
         console.log(count);
         return count; 
@@ -50,22 +50,22 @@ export const getUser = async (res) => {
         }
     }
 };
-export const setUser = async ({ nome, email, senha, cpf, cod, foto }) => {
-    const con = await conexao();
-  
+export const setUser = async ({ nome, email, senha, cpf, codigo_empresa }) => {
+    const con = await conexao(); // Certifique-se que a função conexao() está funcionando corretamente
+
     try {
         const [result] = await con.execute(
-            'INSERT INTO cliente (Nome, Email, Senha, CPF, Empresa_Cod_empresa,foto)VALUES (?, ?, ?, ?, ?, ?)',
-            [nome, email, senha, cpf, cod, foto]
+            'INSERT INTO cliente (Nome, Email, Senha, CPF, Empresa_Cod_empresa) VALUES (?, ?, ?, ?, ?)',
+            [nome, email, senha, cpf, codigo_empresa]
         );
         return result;
     } catch (error) {
         console.error('Erro ao inserir usuário:', error.message);
+        console.error("Nome: " + nome, "Email: " + email, "Senha: " + senha, "CPF: " + cpf, "Empresa: " + codigo_empresa);
         throw error;
-    
-}
-
+    } 
 };
+
 
 
 export const delUser = async(valor,nome)=>{

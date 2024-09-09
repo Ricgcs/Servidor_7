@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/logo_inteiro.png">
+    <link rel="stylesheet" href="/estilo/produto_inicial.css">
+    <title id="titulo"></title>
+</head>
+<body>
+<header id = "cabecalho">
+
+<h1 id="header_inovaworks">InovaWorks</h1>
+
+<div id="header_links">
+<a href="/inicial_login.html"><img id="imagem" src="/img/home.png" alt="menu"><button id="header_button"> Home</button></a>
+<a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
+<a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
+<a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
+<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+</div>
+
+<div id="header_user">
+<img id="img_user" src="" alt="imagem_usuario">
+<div id="header_config">
+<h1 id="nome_user"></h1>
+<a id="link_user" href="#">configuração</a>
+</div>
+
+</a>
+</div>
+
+</header>
+
+
+<div id="centro">
+    
+<section id="s1">
+<h1 id="produtos">Produtos</h1>
+
+<div id="pesquisa">
+<button id="button_pesquisa"><img id="img_pesquisa" src="/img/pesquise.png" alt="Pesquise"></button><input id="pesquisa_input" placeholder="Digite o nome do material...">
+</div>
+
+<div id="produtos_cadastrados">
+    
+</div>
+</section>
+
+
+<section id="s2">
+    <img id="imagem_logo_cadastrado" src="/img/logo_inteiro.png" alt="logo">
+<h1 id="nome_cadastrado"></h1>
+<div><a href="/cadastro_produto.html"><button id="btn_footer">Adicionar produto</button></a></div>
+</section>
+
+
+
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+
+const loadFromLocalStorage = () => {
+  const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+
+  const nomeUserElement = document.getElementById('nome_user');
+  if (nomeUserElement) {
+    const primeiroNome = nomeUser.split(" ")[0];
+    nomeUserElement.innerHTML = primeiroNome;
+  }
+
+  const imgUserElement = document.getElementById('img_user');
+  if (imgUserElement) {
+    imgUserElement.src = "/img/imagem_user.png";
+  }
+};        
+loadFromLocalStorage();
+
+const fetchProdutos = async () => {
+  try {
+    const codEmpresa = localStorage.getItem('cod_empresa');
+    if (!codEmpresa) {
+      console.error('cod_empresa não definido no localStorage.');
+      return [];
+    }
+
+    const response = await fetch(`http://localhost:3000/produto/mostrar/${codEmpresa}`);
+    
+    if (!response.ok) {
+      throw new Error('Erro na resposta da rede');
+    }
+
+    const resposta = await response.json();
+    const produtos = resposta.data;
+    console.log('Dados recebidos do backend:', produtos);
+    console.log('Tipo de dados retornado:', Array.isArray(produtos) ? 'Array' : typeof produtos);
+    console.log('Primeiro item do array:', produtos[0]);
+
+    return produtos;
+  } catch (error) {
+    console.error('Erro ao buscar os dados:', error);
+    return [];
+  }
+};
+
+const replaceImageWithDiv = (nomeProduto) => {
+  const imagemLogo = document.getElementById('imagem_logo_cadastrado');
+  
+  
+  let divProduto = document.getElementById('div_produto');
+  if (!divProduto) {
+    divProduto = document.createElement('div');
+    divProduto.id = 'div_produto';
+    divProduto.style.fontSize = '24px'; 
+    divProduto.style.textAlign = 'center';
+    divProduto.style.padding = '20px';
+    divProduto.style.backgroundColor = '#f0f0f0'; 
+    divProduto.style.height = '70%'
+    divProduto.style.width = '60%'
+    imagemLogo.parentNode.replaceChild(divProduto, imagemLogo);
+  }
+
+ 
+  divProduto.textContent = `Produto: ${nomeProduto}`;
+};
+
+const displayProdutos = (produtos) => {
+  const tamanho = produtos.length;
+  const antigos_produtos = document.getElementById('produtos_cadastrados');
+  antigos_produtos.innerHTML = '';
+
+  if (tamanho > 0) {
+    produtos.forEach(produto => {
+      const button = document.createElement('button');
+      button.classList.add('pesquisa_div');
+      button.textContent = produto.Nome;
+
+
+      button.addEventListener('click', () => {
+        replaceImageWithDiv(button.textContent);
+      });
+
+      antigos_produtos.appendChild(button);
+    });
+  } else {
+    const mensagem = document.createElement('p');
+    mensagem.textContent = 'Nenhum produto cadastrado';
+    antigos_produtos.appendChild(mensagem);
+  }
+};
+
+fetchProdutos().then(displayProdutos).catch(error => {
+  console.error('Erro ao executar fetchProdutos:', error);
+});
+
+});
+</script>
+  
+
+
+
+
+</body>
+</html>

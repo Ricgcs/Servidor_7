@@ -95,12 +95,53 @@
             <button id="OBS_b"><a id="vai">+Adicionar itens</a></button>
         </footer>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const saveToLocalStorage = () => {
+            const params = new URLSearchParams(window.location.search);
+            const nomeUser = params.get('nome') || '';
+            const empresaUser = params.get('cod_empresa') || '';
+      
+            // Salva no localStorage se o nome não estiver vazio
+            if (nomeUser.trim() !== '') { 
+              localStorage.setItem('nome_user', nomeUser);
+              localStorage.setItem('cod_empresa', empresaUser);
+            }
+          };
+      
+          // Função para recuperar e exibir dados do localStorage
+          const loadFromLocalStorage = () => {
+            const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+      
+            // Atualiza o DOM com os dados do localStorage
+            const nomeUserElement = document.getElementById('nome_user');
+            if (nomeUserElement) {
+              const primeiroNome = nomeUser.split(" ")[0];
+              nomeUserElement.textContent = `${primeiroNome}`; // Corrigido para usar textContent
+            }
+      
+            const imgUserElement = document.getElementById('img_user');
+            if (imgUserElement) {
+              imgUserElement.src = "/img/imagem_user.png";
+            }
+          };
+      
+          // Salva os dados da URL no localStorage
+          saveToLocalStorage();
+          
+          // Carrega os dados do localStorage e atualiza o DOM
+          loadFromLocalStorage();
+      
+          // Manipulação de evento para o input de observação
+          const obsInput = document.getElementById('obs');
+          if (obsInput) {
+            obsInput.addEventListener('input', function () {
+              obsInput.scrollTop = obsInput.scrollHeight;
+            });
+          }
+        });
+      </script>
+      
 </body>
-<script>
-    const obsInput = document.getElementById('obs');
 
-    obsInput.addEventListener('input', function () {
-        obsInput.scrollTop = obsInput.scrollHeight;
-    });
-</script>
 </html>

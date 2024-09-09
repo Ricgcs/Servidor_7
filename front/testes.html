@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gerar PDF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    #conteudo {
+      width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Gerar PDF</h1>
+  <button id="gerar-pdf">Gerar PDF</button>
+  <div id="conteudo">
+    <!-- conteúdo que você deseja incluir no PDF -->
+    <p>Este é um exemplo de conteúdo que será incluído no PDF.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.min.js"></script>
+  <script>
+    const gerarPdf = () => {
+      const conteudo = document.getElementById('conteudo');
+      const pdf = new jsPDF('p', 'pt', 'a4');
+
+      pdf.fromHTML(conteudo, 15, 15, {
+        'width': 170,
+        'elementHandlers': specialElementHandlers
+      });
+
+      const pdfBlob = pdf.output("blob");
+      const url = URL.createObjectURL(pdfBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "documento.pdf";
+      a.click();
+    };
+
+    document.getElementById('gerar-pdf').addEventListener('click', gerarPdf);
+
+    const specialElementHandlers = {
+      '#conteudo': function (element, renderer) {
+        return true;
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,26 +1,24 @@
 import express from "express";
 import bodyParser from "body-parser";
-import fileUpload  from 'express-fileupload';
-import { atualizar, procurar, setUser, getUser, delUser, validarUser, login,qtd_clientes } from "../back/controle/usuario.js";
-import { atualizarProd, procurarProd, setProd, getProd, delProd } from "../back/controle/produtos.js";
-import { atualizarEmp, procurarEmp, setEmpr, getEmpresa, delEmpr } from "../back/controle/empresa.js";
-import { atualizarCargo, procurarCargo, setCarg, getCarg, delCarg } from "../back/controle/cargo.js";
-import { atualizarFunc, procurarFunc, setFunc, getFunc, delFunc } from "../back/controle/funcionario.js";
+import fileUpload from 'express-fileupload';
+import { atualizar, procurar, setUser, getUser, delUser, validarUser, login, qtd_clientes } from "../back/controle/usuario.js";
+import { setProd, getProd, procurarProd, atualizarProd, delProd } from "../back/controle/produtos.js";
+import { setEmpr, procurarEmp, atualizarEmp, delEmpr, getEmpresa } from "../back/controle/empresa.js";
+import { setCarg, procurarCargo, atualizarCargo, delCarg, getCarg } from "../back/controle/cargo.js";
+import { setFunc, procurarFunc, atualizarFunc, delFunc, getFunc } from "../back/controle/funcionario.js";
+import { setOrcamento, getOrcamento, delOrcamento, procOrcamento, atualizarOrcamento } from "./controle/orcamento.js";
 import { __dirname } from "../nomeArquivo.js";
-import path, { dirname } from 'path';
-import fs from 'fs';
-import { isUtf8 } from "buffer";
+import path from 'path';
 
+const app = express();
 const host = "127.0.0.1";
 const porta = 3000;
-const user = "localhost";
-const app = express();
 
 app.use(fileUpload());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname,'front')));
+app.use(express.static(path.join(__dirname, 'front')));
 
 //-----------------------------------------------usuário---------------------------------------------------------\\
 app.get('/teste', async (req, res) => {
@@ -38,13 +36,12 @@ app.get('/teste', async (req, res) => {
         res.status(500).send('Erro ao validar usuário.');
     }
 });
-app.post('/usuario', upload.single('foto_perfil'), async (req, res) => {
+
+app.post('/usuario', async (req, res) => {
     const { nome, email, senha, cpf, codigo_empresa } = req.body;
-    const foto_perfil = req.file;
+  
 
-    let fotoBase64 = foto_perfil ? foto_perfil.buffer.toString('base64') : null;
-
-    let userData = { nome, email, senha, cpf, codigo_empresa, foto: fotoBase64 };
+    let userData = { nome, email, senha, cpf, codigo_empresa };
 
     try {
         await setUser(userData);
@@ -104,7 +101,7 @@ app.post('/usuario/logar', async (req, res) => {
     const cod = Number(req.body.cod);
     const nome = req.body.nome;
     const senha = req.body.senha;
-    const cod_empresa = req.body.Cod_empresa;
+    const cod_empresa = Number(req.body.Cod_empresa);
     let envio = { cod, nome, senha };
     const nc = await qtd_clientes();
 
@@ -112,8 +109,8 @@ app.post('/usuario/logar', async (req, res) => {
         let teste = await login(envio.cod, envio.nome, envio.senha);
         if (teste == 1) {
             const inicial = path.join(__dirname, 'front', 'inicial_login.html');
-            const foto = await procurar('foto', 'nome', nome);
-            const queryParams = `?nome=${encodeURIComponent(nome)}&senha=${encodeURIComponent(senha)}&nc=${nc}&foto=${encodeURIComponent(foto)}`;
+        
+            const queryParams = `?nome=${encodeURIComponent(nome)}&cod_empresa=${encodeURIComponent(cod)}}`;
             res.redirect(`/inicial_login.html${queryParams}`);
             return;
         } else {
@@ -126,11 +123,11 @@ app.post('/usuario/logar', async (req, res) => {
 });
 
 //-----------------------------------------------Produto---------------------------------------------------------\\
-app.post('/produto', async (req, res) => {
-    const { nome, valor, quantidade, area, cod_empr, foto } = req.body; 
+app.post('/produto/:nome/:valor/:quantidade/:cod_empr/:altura/:comprimento/:largura', async (req, res) => {
+    const { nome, valor, quantidade, cod_empr, altura, comprimento, largura } = req.params; 
 
     try {
-        const resultado = await setProd({ nome, valor, quantidade, area, cod_empr, foto });
+        const resultado = await setProd({ nome, valor, quantidade, cod_empr, altura, comprimento, largura });
         res.status(201).json({ message: "Produto criado com sucesso", data: resultado });
     } catch (error) {
         res.status(500).json({ message: "Erro ao criar o produto", error: error.message });
@@ -139,12 +136,13 @@ app.post('/produto', async (req, res) => {
 
 
 
-app.get('/produto/mostrar', async (req, res) => {
-    const { valor, nome} = req.body; 
-console.log(valor, nome)
+app.get('/produto/mostrar/:pesq', async (req, res) => {
+       
+         const pesq = req.params.pesq;
+         console.log(pesq)
     try {
-        const resultado = await procurarProd({ valor, nome});
-        res.status(200).json({ data: resultado });
+        const resultado = await procurarProd(pesq);
+        res.status(200).json({ data: resultado});
     } catch (error) {
         res.status(500).json({ message: "Erro ao procurar o produto", error: error.message });
     }
@@ -341,6 +339,28 @@ app.get('/funcionario/mostrar_todos', async (req, res) => {
  getFunc()
 });
 
-app.listen(porta, host, user, () => {
+//--------------------------------------------------Orçamento--------------------------------------------------\\
+
+app.post('/orcamento/:Nome/:Descricao/:Valor/:Desconto/:Data_inicio/:Data_entrega/:Empresa_Cod_empresa', async (req, res) => {
+    
+    const { Nome, Descricao, Valor, Desconto, Data_inicio, Data_entrega, Empresa_Cod_empresa } = req.params;
+    
+    console.log(Nome, Descricao, Valor, Desconto, Data_inicio, Data_entrega, Empresa_Cod_empresa);
+    
+    try {
+       
+        const resultado = await setOrcamento(Nome, Descricao, Valor, Desconto, Data_inicio, Data_entrega, Empresa_Cod_empresa);
+        
+        
+        res.status(201).json({ message: "Orçamento criado com sucesso", data: resultado });
+    } catch (error) {
+       
+        
+        res.status(500).json({ message: "Erro ao criar o orçamento", error: error.message });
+    }
+});
+
+
+app.listen(porta, host,  () => {
     console.log("servidor rodando");
 });

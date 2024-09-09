@@ -56,7 +56,42 @@
 
 </div>
 
-
+<script type="text/javascript">
+    
+    document.addEventListener('DOMContentLoaded', () => {
+     const saveToLocalStorage = () => {
+       const params = new URLSearchParams(window.location.search);
+       const nomeUser = params.get('nome') || '';
+       const empresaUser = params.get('cod_empresa');
+       // Verifica se o nomeUser está vazio
+       if (nomeUser.trim() !== '') { 
+         localStorage.setItem('nome_user', nomeUser);
+         localStorage.setItem('cod_empresa',empresaUser)
+   
+       }
+     };
+   
+     // Função para recuperar e exibir dados do localStorage
+     const loadFromLocalStorage = () => {
+       const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+       // Atualiza o DOM com os dados do localStorage
+       const nomeUserElement = document.getElementById('nome_user');
+       if (nomeUserElement) {
+         const primeiroNome = nomeUser.split(" ")[0];
+         nomeUserElement.innerHTML = `${primeiroNome}`;
+       }
+       const imgUserElement = document.getElementById('img_user');
+       if (imgUserElement) {
+         imgUserElement.src = "/img/imagem_user.png";
+       }
+     };
+    });
+     // Salva os dados da URL no localStorage
+     saveToLocalStorage();
+   
+     // Carrega os dados do localStorage e atualiza o DOM
+     loadFromLocalStorage();
+    </script>
 
 </body>
 </html>

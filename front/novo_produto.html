@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/estilo/novo_produto.css">
+    <link rel="stylesheet" href="/estilo/index.css">
     <link rel="icon" href="/img/logo_inteiro.png">
-    <title>Novo_produto</title>
+    <title>Nova_compra</title>
 </head>
 <body>
     <header id = "cabecalho">
@@ -30,79 +30,118 @@
         </header>
     <div id="Formulario">
         <head>
-            <h1 id="Cabecalho">Novo produto</hr></h1>
+            <h1 id="Cabecalho">Nova compra</hr></h1>
         </head>
 
         <section id="s1">
             <div id="s1a">
-                <label id="s1l">Código do produto</label>
+                <label id="s1l">Código da compra</label>
                 <input type="number" placeholder="Digite aqui">
             </div>
             <div id="s1b">
                 <label id="s1l">Fornecedor</label>
                 <input type="text" placeholder="Digite aqui">
             </div>
-            <div id="s1b">
-                <label id="s1l">Nome do produto</label>
-            <input type="number" placeholder="Digite aqui" id="v2in"/>
-        </div>
         </section>
 
         <section id="s2">
             <div id="valores">
-                <h1 id="vh2">Valor da ultima compra</h1>
-                <h1 id="vh3">Altura</h1>
+                <h1 id="vh1">Valor da última compra</h1>
+                <h1 id="vh2">Altura</h1>
+                <h1 id="vh3">Profundidade</h1>
                 <h1 id="vh4">Profundidade</h1>
                 <h1 id="vh5">Largura</h1>
             </div>
         </section>
         <section id="s3">
             <div id="v2">
+                <input type="number" placeholder="Digite aqui" id="v2in"/>
                 <input type="text" placeholder="Digite aqui" id="v2in"/>
-           
                 <input type="text" placeholder="Digite aqui" id="v2in"/>
-                <select name="cars" id="">
-                    <option value="">MTS</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
                 <input type="text" placeholder="Digite aqui" id="v2in"/>
-                <select name="cars" id="">
-                    <option value="">MTS</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
                 <input type="text" placeholder="Digite aqui" id="v2in"/>
-                <select name="cars" id="">
-                    <option value="">MTS</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
             </div>
+
         </section>
         <div id="geral">
             <div id="ultl">
                 <div id="ult">
-                  
+                    <div class="campo">
+                        <label id="va">ICMS</label>
+                        <input type="number" placeholder="Digite aqui" id="input_ult"/>
+                    </div>
+                    <div class="campo">
+                        <label id="vb">COFINS</label>
+                        <input type="text" placeholder="Digite aqui" id="input_ult"/>
+                    </div>
+                    <div class="campo">
+                        <label id="vc">IPI</label>
+                        <input type="text" placeholder="Digite aqui" id="input_ult"/>
+                    </div>
+                    <div class="campo">
+                        <label id="vd">PIS</label>
+                        <input type="text" placeholder="Digite aqui" id="input_ult"/>
+                    </div>
                 </div>
-            
+            </div>
+            <div id="ult2"></div>
+        </div>
         <footer>
             <label id="lab1">Observações</label>
             <div id="obs-wrapper">
                 <textarea id="obs" placeholder="Digite aqui..."></textarea>
             </div>
-            
-            <button id="OBS_b"><a id="vai">Adicionar novo produto</a></button>
+            <a id="vai" href="/cadastro_produto.html"><button id="OBS_a">+Adicionar produto</button></a>
+            <a id="vai"><button id="OBS_b">+Adicionar compra</button></a>
         </footer>
     </div>
 </body>
 <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const saveToLocalStorage = () => {
+            const params = new URLSearchParams(window.location.search);
+            const nomeUser = params.get('nome') || '';
+            const empresaUser = params.get('cod_empresa') || '';
+      
+            // Salva no localStorage se o nome não estiver vazio
+            if (nomeUser.trim() !== '') { 
+              localStorage.setItem('nome_user', nomeUser);
+              localStorage.setItem('cod_empresa', empresaUser);
+            }
+          };
+      
+          // Função para recuperar e exibir dados do localStorage
+          const loadFromLocalStorage = () => {
+            const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+      
+            // Atualiza o DOM com os dados do localStorage
+            const nomeUserElement = document.getElementById('nome_user');
+            if (nomeUserElement) {
+              const primeiroNome = nomeUser.split(" ")[0];
+              nomeUserElement.textContent = `${primeiroNome}`; // Corrigido para usar textContent
+            }
+      
+            const imgUserElement = document.getElementById('img_user');
+            if (imgUserElement) {
+              imgUserElement.src = "/img/imagem_user.png";
+            }
+          };
+      
+          // Salva os dados da URL no localStorage
+          saveToLocalStorage();
+          
+          // Carrega os dados do localStorage e atualiza o DOM
+          loadFromLocalStorage();
+      
+          // Manipulação de evento para o input de observação
+          const obsInput = document.getElementById('obs');
+          if (obsInput) {
+            obsInput.addEventListener('input', function () {
+              obsInput.scrollTop = obsInput.scrollHeight;
+            });
+          }
+        });
+      
     const obsInput = document.getElementById('obs');
 
     obsInput.addEventListener('input', function () {

@@ -1,56 +1,28 @@
-<script type="text/javascript">
-    async function carregarUsuarios() {
-        try {
-            console.log("Iniciando a requisição...");
-
-            const response = await fetch("http://localhost:3000/usuario/mostrar_todos");
-
-            console.log("Status da resposta:", response.status);
-            console.log("Resposta OK?", response.ok);
-
-            if (!response.ok) {
-                throw new Error(`Erro HTTP! Status: ${response.status}`);
-            }
-
-            const usuarios = await response.json();
-            console.log("Dados recebidos:", usuarios);
-
-            const antigos_usuarios = document.getElementById('ultimos_clientes');
-            antigos_usuarios.innerHTML = ''; // Limpa o conteúdo existente
-
-            if (usuarios && Array.isArray(usuarios) && usuarios.length > 0) {
-                usuarios.forEach(user => {
-                    console.log("Usuário:", user); // Log detalhado do usuário
-
-                    const div = document.createElement('div');
-                    div.classList.add('clientes');
-
-                    const img = document.createElement('img');
-                    img.classList.add('imagem_teste');
-                    img.alt = "imagem_usuario";
-                    img.src = "/img/imagem_user.png";
-
-                    const nomeCliente = document.createElement('p');
-                    let nome = user.nome || user.nome_cliente || user.NOME || 'Nome não encontrado';
-
-                    console.log("Nome do usuário:", nome); // Log do nome do usuário
-                    nomeCliente.textContent = nome;
-                    div.appendChild(nomeCliente);
-                    div.appendChild(img);
-
-                    antigos_usuarios.appendChild(div);
-                });
-            } else {
-                const mensagem = document.createElement('p');
-                mensagem.textContent = 'Nenhum usuário encontrado.';
-                antigos_usuarios.appendChild(mensagem);
-            }
-
-        } catch (error) {
-            console.error("Erro ao carregar usuários:", error);
-            alert("Erro ao carregar usuários: " + error.message);
+const displayProdutos = (produtos) => {
+        const tamanho = produtos.length;
+        const antigos_produtos = document.getElementById('produtos_cadastrados');
+        antigos_produtos.innerHTML = '';
+  
+        if (tamanho > 0) {
+          produtos.forEach(produto => {
+            const div = document.createElement('div');
+            div.classList.add('clientes');
+  
+            const nomeProduto = document.createElement('p');
+            const nomeFiltrado = produto.Nome.split(" ")[0];
+            nomeProduto.textContent = nomeFiltrado;
+  
+            div.appendChild(nomeProduto);
+            antigos_produtos.appendChild(div);
+          });
+        } else {
+          const mensagem = document.createElement('p');
+          mensagem.textContent = 'Nenhum produto cadastrado';
+          antigos_produtos.appendChild(mensagem);
         }
-    }
-
-    carregarUsuarios();
-</script>
+      };
+  
+      // Busca e exibe os produtos na página
+      fetchProdutos().then(displayProdutos).catch(error => {
+        console.error('Erro ao executar fetchProdutos:', error);
+      });
