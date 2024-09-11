@@ -4,57 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo_inteiro.png">
- <link rel="stylesheet" href="estilo/c_cliente.css">
+    <link rel="stylesheet" href="estilo/c_cliente.css">
     <title>Cadastro cliente</title>
 </head>
 <body>
-    <script>
-
-    </script>
-    <div id="menu">
+<div id="menu">
 <header>
-    <a><h1 id="Nome_header"><a id="link_menu"href="inicial.html">InovaWorks</a></h1></a>
-
-<div id="div_link_header">
-    <a href="#"><h1 id="Links_header">COMPRE AGORA</h1></a>
-    <a href="#"><h1 id="Links_header">PROGRAMA</h1></a>
-    <a href="#"><h1 id="Links_header">VALORES</h1></a>
-    <a href="#"><h1 id="Links_header">CONTATE-NOS</h1></a>
-    <a href="sobre_nos.html"><h1 id="Links_header">SOBRE NÓS</h1></a>
-</div>
-
-
-<div id="div_img_header">
-    <a href="twiter"><img src="img/twiter.png" alt="twiter"></a>
-    <a href="linkedin"><img src="img/linkedin.png" alt="linkedin"></a>
-    <a href="instaram"><img id="logo_instagram" src="img/instagram-removebg-preview (2).png" alt="instagram"></a>
-</div>
+    <h1 id="Nome_header"><a id="link_menu" href="inicial.html">InovaWorks</a></h1>
+    <div id="div_link_header">
+        <a href="#"><h1 class="Links_header">COMPRE AGORA</h1></a>
+        <a href="#"><h1 class="Links_header">PROGRAMA</h1></a>
+        <a href="#"><h1 class="Links_header">VALORES</h1></a>
+        <a href="#"><h1 class="Links_header">CONTATE-NOS</h1></a>
+        <a href="sobre_nos.html"><h1 class="Links_header">SOBRE NÓS</h1></a>
+    </div>
+    <div id="div_img_header">
+        <a href="https://twitter.com"><img src="img/twiter.png" alt="Twitter"></a>
+        <a href="https://linkedin.com"><img src="img/linkedin.png" alt="LinkedIn"></a>
+        <a href="https://instagram.com"><img id="logo_instagram" src="img/instagram-removebg-preview (2).png" alt="Instagram"></a>
+    </div>
 </header>
 
 <div id="corpo">
     <img id="img_form" src="img/logo_inteiro.png" alt="logo">
     <h1 id="Nome_img">InovaWorks</h1>
 
+    <form>
+        <input type="text" id="nome" placeholder="Nome" name="nome" required>
+        <input type="email" id="email" placeholder="Email" name="email" required>
+        <input type="password" id="senha" placeholder="Senha" name="senha" required>
+        <input type="number" id="cpf" placeholder="CPF" name="cpf" required>
+        <input type="number" id="codigo_empresa" placeholder="Cod_empresa" name="codigo_empresa" required>
+        <button type="button" onclick="cadastro()" id="corpo_button_cadastrar">Cadastrar</button>
+    </form>
 
-
-<form action="http://localhost:3000/usuario" method="POST">
-   
-    <input id="formCadastro" type="text" placeholder="Nome"  name="nome" required>
-    <input type="email" placeholder="Email" name="email" required>
-    <input type="password" placeholder="Senha" name="senha" required>
-    <input type="number" placeholder="CPF" name="cpf"required>
-    <input type="number" placeholder="Cod_empresa" name="codigo_empresa"required>
-    <button type="submit" id="corpo_button_cadastrar">Cadastrar</button>
-    
-</form>
-
-
-
-
-<h6><a href="login_cliente.html">Já é cadastrado? login</a></h6>
+    <h6><a href="login_cliente.html">Já é cadastrado? login</a></h6>
+</div>
 </div>
 
-    </div>
+<script>
+// Função de cadastro corrigida
+const cadastro = async () => {
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+    const cpf = document.getElementById("cpf").value;
+    const cod = document.getElementById("codigo_empresa").value;
 
+    try {
+        const response = await fetch(`/usuario/${nome}/${email}/${senha}/${cpf}/${cod}`);
+        const data = await response.json();
+
+        console.log(data);
+        alert('Cadastro realizado com sucesso!');
+        return data;
+    } catch (error) {
+        console.error('Erro ao realizar o cadastro:', error);
+        alert('Falha ao realizar o cadastro. Tente novamente.');
+    }
+};
+</script>
 </body>
 </html>

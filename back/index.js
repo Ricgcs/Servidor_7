@@ -37,7 +37,8 @@ app.get('/teste', async (req, res) => {
     }
 });
 
-app.post('/usuario', async (req, res) => {
+app.post('/usuario/:nome/:email/:senha/:cpf/:codigo_empresa', async (req, res) => {
+    // [nome, email, senha, cpf, codigo_empresa]
     const { nome, email, senha, cpf, codigo_empresa } = req.body;
   
 

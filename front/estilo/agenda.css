@@ -1,0 +1,316 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+body{
+    background-color: #0A0403;
+   position: fixed;
+    width:100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+@font-face {
+    font-family: 'Montserrate';
+    src: url(../fontes/Montserrat-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: "moul";
+    src: url(../fontes/Moul-Regular.ttf);
+}
+
+#cabecalho{
+    
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+}
+
+#header_inovaworks{
+    color: white;
+    font-size: 1.5vw;
+    font-family: 'moul';
+    
+}
+
+#header_links{
+
+width: 30%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-left: 1vw;
+
+}
+
+#header_button{
+    text-decoration: none;
+    background-color: transparent;
+    color: white;
+    font-family: 'Montserrate';
+    box-shadow: none;
+    padding: 0px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+
+.imagem_teste{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+margin-left: 10%;
+
+
+
+}
+
+#nome_user{
+    font-size: 1vw;
+    color: white;
+}
+
+#header_user{
+    display: flex;
+    margin-right:-2vw;
+
+   }
+
+   #img_user{
+    display: inline;
+    color: white;
+margin-top: -0,6vw;
+width: 15%;
+height: 15%;
+
+   }
+#link_user{
+    color:white;
+}
+#header_config{
+    
+}
+
+#imagem{
+height: 1.5vw;
+width: 1.5vw;
+}
+
+a{
+display: flex;
+text-decoration: none;
+}
+
+
+#corpo{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+#produtos{
+    background: rgba(255, 77, 0, 0.85);
+    font-family: 'Montserrat';
+    color:white;
+    padding: 1vw;
+    border-radius: 1vw;
+    width: 100%;
+    font-size: 3vw;
+
+}
+
+#compras{
+    background: rgba(255, 77, 0, 0.85);
+    font-family: 'Montserrat';
+    color:white;
+    font-size: 3vw;
+    padding: 1vw;
+    border-radius: 1vw;
+    width: 100%;
+
+
+}
+
+#testea{
+    height: 20%;
+    width: 25%;
+   
+}
+
+#testeb{
+  height: 20%;
+  width: 25%;
+  margin-left: 8vw;
+ 
+}
+
+html{
+
+
+    --body-color:#FFFCFF ;
+  
+    --header-color:rgb(255, 255, 255);
+  
+    --header-button:#92a1d1;
+  
+    --color-weekdays: #247BA0;
+    
+    --box-shadow: #CBD4C2;
+  
+    --hover: #e8faed;
+  
+    --current-day:#e8f4fa;
+  
+    --event-color: #58bae4;
+  
+    --modal-event: #e8f4fa;
+  
+  
+   --color-day:white;
+    
+  
+  }
+  
+  
+  button {
+    width: 75px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px gray;
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  #header {
+    padding: 10px;
+    color: var(--header-color) ;
+    font-size: 26px;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+  }
+  #header button {
+    background-color:#DA4200;
+  }
+  #container {
+    width: 770px;
+  }
+  #weekdays {
+    width: 100%;
+    display: flex;
+    color: var(--color-weekdays) ;
+  }
+  #weekdays div {
+    width: 100px;
+    padding: 10px;
+  }
+  #calendar {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .day {
+    width: 100px;
+    padding: 10px;
+    height: 100px;
+    cursor: pointer;
+    box-sizing: border-box;
+    background-color: var(--color-day);
+    margin: 5px;
+    box-shadow: 0px 0px 3px var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15%;
+  }
+  .day:hover {
+    background-color: var(--hover);
+  }
+  
+  .day + #currentDay {
+    background-color:var(--current-day);
+  }
+  .event {
+    font-size: 10px;
+    padding: 3px;
+    background-color: var(--event-color);
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+  }
+  .padding {
+    cursor: default !important;
+    background-color: var(--body-color) !important;
+    box-shadow: none !important;
+  }
+  #newEventModal, #deleteEventModal {
+    display: none;
+    z-index: 20;
+    padding: 25px;
+    background-color: var(--modal-event);
+    box-shadow: 0px 0px 3px black;
+    border-radius: 5px;
+    width: 350px;
+    top: 100px;
+    left: calc(50% - 175px);
+    position: absolute;
+    font-family: sans-serif;
+  }
+  #eventTitleInput {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+  #eventTitleInput.error {
+    border: 2px solid red;
+  }
+  #cancelButton {
+    background-color: #DA4200;
+    color:black;
+  }
+  #saveButton, #closeButton {
+    background-color: #DA4200;
+    color:black
+  }
+
+  #closeButton{
+    background-color: #DA4200;
+  }
+  #deleteButton{
+    background-color: #DA4200;
+    color:black;
+  }
+  #eventText {
+    font-size: 14px;
+  }
+  #modalBackDrop {
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+  }

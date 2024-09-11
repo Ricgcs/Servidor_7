@@ -207,7 +207,6 @@ div {
 }
 
 #Formulario {
-    margin-top: 5%;
     color: black;
     border-radius: 0.5vw;
     background-color: white;
@@ -240,6 +239,7 @@ hr {
     padding: 0.4vw;
     border: none;
     margin-left: 0.74vw;
+   
 }
 
 #geral {
