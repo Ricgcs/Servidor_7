@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import fileUpload from 'express-fileupload';
 import { atualizar, procurar, setUser, getUser, delUser, validarUser, login, qtd_clientes } from "../back/controle/usuario.js";
-import { setProd, getProd, procurarProd, atualizarProd, delProd } from "../back/controle/produtos.js";
+import { setProd, getProd, procurarProd, atualizarProd, delProd, getnomeprod } from "../back/controle/produtos.js";
 import { setEmpr, procurarEmp, atualizarEmp, delEmpr, getEmpresa } from "../back/controle/empresa.js";
 import { setCarg, procurarCargo, atualizarCargo, delCarg, getCarg } from "../back/controle/cargo.js";
 import { setFunc, procurarFunc, atualizarFunc, delFunc, getFunc } from "../back/controle/funcionario.js";
@@ -153,6 +153,21 @@ app.get('/produto/mostrar/:pesq', async (req, res) => {
     }
 });
 
+app.get('/produto/mostrar_nome/:nome/:cod', async (req, res) => {
+    const nome = req.params.nome;
+    const cod = req.params.cod;
+    console.log(`Nome: ${nome}, Código: ${cod}`);
+    
+    try {
+        const resultado = await getnomeprod({ nome, cod });
+        res.status(200).json({ data: resultado });
+        console.log("Resultado:", resultado);
+        return resultado;
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao procurar o produto", error: error.message });
+        console.error("Erro:", error.message);
+    }
+});
 
 app.post('/produto/atualizar', async (req, res) => {
     const { valor, nome, tipo, ent} = req.body; 
@@ -160,8 +175,11 @@ console.log(valor, nome,tipo, ent)
     try {
         const resultado = await atualizarProd(valor, nome, tipo, ent)
         res.status(200).json({ data: resultado });
+        console.log(resultado)
     } catch (error) {
         res.status(500).json({ message: "Erro ao atualizar o produto", error: error.message });
+        console.log("erro")
+
     }
 });
 

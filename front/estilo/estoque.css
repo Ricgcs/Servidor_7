@@ -5,7 +5,7 @@
 }
 body{
     background-color: #0A0403;
-   position: fixed;
+    position: fixed;
     width:100%;
     height: 100%;
     display: flex;
@@ -22,7 +22,6 @@ body{
 }
 
 #cabecalho{
-    
     background-color: black;
     width: 100%;
     display: flex;
@@ -40,7 +39,7 @@ body{
 
 #header_links{
 
-width: 30%;
+width: 40%;
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -97,8 +96,8 @@ height: 15%;
 }
 
 #imagem{
-height: 1vw;
-width: 1vw;
+height: 1.5vw;
+width: 1.5vw;
 }
 
 a{

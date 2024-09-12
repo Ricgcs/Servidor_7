@@ -31,17 +31,16 @@
     margin-left: 1vw;
     
 }
-
 #header_links{
 
-width: 30%;
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-left: 1vw;
-
-}
-
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 2vw;
+    
+    }
+    
 #header_button{
     text-decoration: none;
     background-color: transparent;
@@ -78,10 +77,10 @@ margin-left: 10%;
    #img_user{
     display: inline;
     color: white;
-margin-top: -0,6vw;
-width: 15%;
-height: 15%;
-
+    margin-top: 0.8vw;
+    margin-right: -0.15vw;
+    width: 15%;
+    height: 15%;
    }
 #link_user{
     color:white;
@@ -91,8 +90,8 @@ height: 15%;
 }
 
 #imagem{
-height: 1vw;
-width: 1vw;
+height: 1.5vw;
+width: 1.5vw;
 }
 
 a{

@@ -13,8 +13,18 @@ export const getProd = async () => {
         res.status(500).json({ error: "Erro ao obter os produtos" });
     }
 };
+export const getnomeprod = async ({ nome, cod }) => {
+    try {
+        const sql = "SELECT * FROM Produto WHERE Nome = ? AND Empresa_Cod_empresa = ?";
+        const [rows] = await con.query(sql, [nome, cod]);
+        return rows;
+    } catch (error) {
+        console.error("Erro no select_Prod", error);
+        throw new Error("Erro ao obter os produtos");
+    }
+};
 
-export const setProd = async ( {nome, valor, quantidade,cod_empr, altura, comprimento, largura}) => {
+export const setProd = async ({nome, valor, quantidade,cod_empr, altura, comprimento, largura}) => {
     const con = await conexao();
     try {
         const [result] = await con.execute(
