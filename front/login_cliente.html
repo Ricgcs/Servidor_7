@@ -38,12 +38,24 @@
     <input type="number" placeholder="codigo empresa" name="cod"  required>
     <input type="text" placeholder="Nome" name="nome"  required>
     <input type="password" placeholder="Senha" name="senha" required>
-    <button type="submit" id="corpo_button_cadastrar">Login</button>
+    <button type="submit" id="corpo_button_cadastrar" onclick="cadastro()">Login</button>
     
 </form>
 </div>
 
     </div>
+    <script>
+        function cadastro() {
+            const nome = document.getElementById("nome").value;
+            const senha = document.getElementById("senha").value;
 
+            if (nome && senha) {
+                localStorage.setItem("nome_cliente", nome);
+                localStorage.setItem("senha_cliente", senha);
+            } else {
+                console.error("Nome ou senha não podem estar vazios.");
+            }
+        }
+    </script>
 </body>
 </html>

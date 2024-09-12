@@ -71,7 +71,8 @@
     const params = new URLSearchParams(window.location.search);
     const nomeUser = params.get('nome') || '';
     const empresaUser = params.get('cod_empresa');
-    // Verifica se o nomeUser está vazio
+  
+    
     if (nomeUser.trim() !== '') { 
       localStorage.setItem('nome_user', nomeUser);
       localStorage.setItem('cod_empresa',empresaUser)
@@ -79,11 +80,13 @@
     }
   };
 
-  // Função para recuperar e exibir dados do localStorage
+
+  
+
   const loadFromLocalStorage = () => {
     const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
 
-    // Atualiza o DOM com os dados do localStorage
+   
     const nomeCadastroElement = document.getElementById('nome_cadastrado');
     if (nomeCadastroElement) {
       nomeCadastroElement.innerHTML = `Bem-vindo ${nomeUser}`;
@@ -101,13 +104,13 @@
     }
   };
 
-  // Salva os dados da URL no localStorage
+
   saveToLocalStorage();
 
-  // Carrega os dados do localStorage e atualiza o DOM
+  
   loadFromLocalStorage();
 
-  // Função para buscar e exibir dados dos usuários
+ 
   const fetchUsuarios = async () => {
     try {
       const response = await fetch('http://localhost:3000/usuario/mostrar_todos');
@@ -122,7 +125,6 @@
     }
   };
 
-  // Exibe os dados dos usuários na página
   const displayUsuarios = (usuarios) => {
     const tamanho = usuarios.length;
     const antigos_usuarios = document.getElementById('ultimos_clientes');

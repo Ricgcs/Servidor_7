@@ -9,6 +9,8 @@ import { setFunc, procurarFunc, atualizarFunc, delFunc, getFunc } from "../back/
 import { setOrcamento, getOrcamento, delOrcamento, procOrcamento, atualizarOrcamento } from "./controle/orcamento.js";
 import { __dirname } from "../nomeArquivo.js";
 import path from 'path';
+import cors from 'cors';
+
 
 const app = express();
 const host = "127.0.0.1";
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'front')));
+app.use(cors());
 
 //-----------------------------------------------usuário---------------------------------------------------------\\
 app.get('/teste', async (req, res) => {
@@ -37,7 +40,7 @@ app.get('/teste', async (req, res) => {
     }
 });
 
-app.post('/usuario/:nome/:email/:senha/:cpf/:codigo_empresa', async (req, res) => {
+app.post('/usuario', async (req, res) => {
     // [nome, email, senha, cpf, codigo_empresa]
     const { nome, email, senha, cpf, codigo_empresa } = req.body;
   
@@ -46,6 +49,7 @@ app.post('/usuario/:nome/:email/:senha/:cpf/:codigo_empresa', async (req, res) =
 
     try {
         await setUser(userData);
+        console.log(userData)
         res.status(200).send('Usuário criado com sucesso!');
     } catch (error) {
         console.error('Erro ao criar usuário:', error);
