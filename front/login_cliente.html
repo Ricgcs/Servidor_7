@@ -35,9 +35,9 @@
 
 
 <form action="http://localhost:3000/usuario/logar" method="post">
-    <input type="number" placeholder="codigo empresa" name="cod"  required>
-    <input type="text" placeholder="Nome" name="nome"  required>
-    <input type="password" placeholder="Senha" name="senha" required>
+    <input id="cod" type="number" placeholder="codigo empresa" name="cod"  required>
+    <input id="nome" type="text" placeholder="Nome" name="nome"  required>
+    <input id="senha" type="password" placeholder="Senha" name="senha" required>
     <button type="submit" id="corpo_button_cadastrar" onclick="cadastro()">Login</button>
     
 </form>
@@ -46,14 +46,16 @@
     </div>
     <script>
         function cadastro() {
+            const cod = document.getElementById("cod").value;
             const nome = document.getElementById("nome").value;
             const senha = document.getElementById("senha").value;
 
             if (nome && senha) {
-                localStorage.setItem("nome_cliente", nome);
-                localStorage.setItem("senha_cliente", senha);
+                localStorage.setItem("cod", cod);
+                localStorage.setItem("nome", nome);
+                localStorage.setItem("senha", senha);
             } else {
-                console.error("Nome ou senha não podem estar vazios.");
+                console.error("Nome,senha ou cod não podem estar vazios.");
             }
         }
     </script>

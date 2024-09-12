@@ -17,7 +17,7 @@
 <a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
 <a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
 <a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
-<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button" onclick="logOut()">Log out</button></a>
 </div>
 
 <div id="header_user">
@@ -52,7 +52,6 @@
     </div>
 
 
-    <!-- div dinamic -->
     <div id="calendar" ></div>
 
  
@@ -81,27 +80,32 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const saveToLocalStorage = () => {
-        const params = new URLSearchParams(window.location.search);
-        const nomeUser = params.get('nome') || '';
-        const empresaUser = params.get('cod_empresa') || '';
-  
-        // Salva no localStorage se o nome não estiver vazio
-        if (nomeUser.trim() !== '') { 
-          localStorage.setItem('nome_user', nomeUser);
-          localStorage.setItem('cod_empresa', empresaUser);
-        }
-      };
-  
-      // Função para recuperar e exibir dados do localStorage
+      const checkLocalStorage = () => {
+      const nome = localStorage.getItem('nome');
+      const senha = localStorage.getItem('senha');
+      const cod = localStorage.getItem('cod');
+
+      if (!nome || !senha || !cod) {
+        
+        alert('Dados ausentes no localStorage. Redirecionando...');
+        window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkLocalStorage()) {
+      
+      return;
+    }  
+     
       const loadFromLocalStorage = () => {
-        const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+        const nomeUser = localStorage.getItem('nome') || 'Usuário';
   
-        // Atualiza o DOM com os dados do localStorage
         const nomeUserElement = document.getElementById('nome_user');
         if (nomeUserElement) {
           const primeiroNome = nomeUser.split(" ")[0];
-          nomeUserElement.textContent = `${primeiroNome}`; // Corrigido para usar textContent
+          nomeUserElement.textContent = `${primeiroNome}`; 
         }
   
         const imgUserElement = document.getElementById('img_user');
@@ -110,13 +114,9 @@
         }
       };
   
-      // Salva os dados da URL no localStorage
-      saveToLocalStorage();
-      
-      // Carrega os dados do localStorage e atualiza o DOM
+
       loadFromLocalStorage();
   
-      // Manipulação de evento para o input de observação
       const obsInput = document.getElementById('obs');
       if (obsInput) {
         obsInput.addEventListener('input', function () {
@@ -126,23 +126,19 @@
     });
 
 
-    // variaveis globais
-
 let nav = 0
 let clicked = null
 let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : []
 
 
-// variavel do modal:
 const newEvent = document.getElementById('newEventModal')
 const deleteEventModal = document.getElementById('deleteEventModal')
 const backDrop = document.getElementById('modalBackDrop')
 const eventTitleInput = document.getElementById('eventTitleInput')
 // --------
 const calendar = document.getElementById('calendar') // div calendar:
-const weekdays = ['domingo','segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'] //array with weekdays:
+const weekdays = ['domingo','segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'] 
 
-//funções
 
 function openModal(date){
   clicked = date
@@ -162,13 +158,13 @@ function openModal(date){
   backDrop.style.display = 'block'
 }
 
-//função load() será chamada quando a pagina carregar:
+
 
 function load (){ 
   const date = new Date() 
   
 
-  //mudar titulo do mês:
+  
   if(nav !== 0){
     date.setMonth(new Date().getMonth() + nav) 
   }
@@ -193,21 +189,19 @@ function load (){
 
   const paddinDays = weekdays.indexOf(dateString.split(', ') [0])
   
-  //mostrar mês e ano:
+
   document.getElementById('monthDisplay').innerText = `${date.toLocaleDateString('pt-br',{month: 'long'})}, ${year}`
 
   
   calendar.innerHTML =''
 
-  // criando uma div com os dias:
-
+  
   for (let i = 1; i <= paddinDays + daysMonth; i++) {
     const dayS = document.createElement('div')
     dayS.classList.add('day')
 
     const dayString = `${month + 1}/${i - paddinDays}/${year}`
 
-    //condicional para criar os dias de um mês:
      
     if (i > paddinDays) {
       dayS.innerText = i - paddinDays
@@ -274,7 +268,6 @@ function deleteEvent(){
   closeModal()
 }
 
-// botões 
 
 function buttons (){
   document.getElementById('backButton').addEventListener('click', ()=>{
@@ -300,6 +293,13 @@ function buttons (){
 }
 buttons()
 load()
+
+function logOut(){
+ 
+ localStorage.clear();
+
+ window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+}
   </script>
 
 </body>

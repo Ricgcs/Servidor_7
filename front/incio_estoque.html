@@ -17,7 +17,7 @@
 <a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
 <a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
 <a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
-<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button onclick="logOut()" id="header_button">Log out</button></a>
 </div>
 
 <div id="header_user">
@@ -58,27 +58,34 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const saveToLocalStorage = () => {
-        const params = new URLSearchParams(window.location.search);
-        const nomeUser = params.get('nome') || '';
-        const empresaUser = params.get('cod_empresa') || '';
-  
-        // Salva no localStorage se o nome não estiver vazio
-        if (nomeUser.trim() !== '') { 
-          localStorage.setItem('nome_user', nomeUser);
-          localStorage.setItem('cod_empresa', empresaUser);
-        }
-      };
-  
-      // Função para recuperar e exibir dados do localStorage
+      const checkLocalStorage = () => {
+      const nome = localStorage.getItem('nome');
+      const senha = localStorage.getItem('senha');
+      const cod = localStorage.getItem('cod');
+
+      if (!nome || !senha || !cod) {
+        
+        alert('Dados ausentes no localStorage. Redirecionando...');
+        window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkLocalStorage()) {
+      
+      return;
+    }  
+
+
       const loadFromLocalStorage = () => {
-        const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+        const nomeUser = localStorage.getItem('nome') || 'Usuário';
   
-        // Atualiza o DOM com os dados do localStorage
+       
         const nomeUserElement = document.getElementById('nome_user');
         if (nomeUserElement) {
           const primeiroNome = nomeUser.split(" ")[0];
-          nomeUserElement.textContent = `${primeiroNome}`; // Corrigido para usar textContent
+          nomeUserElement.textContent = `${primeiroNome}`; 
         }
   
         const imgUserElement = document.getElementById('img_user');
@@ -87,13 +94,11 @@
         }
       };
   
-      // Salva os dados da URL no localStorage
-      saveToLocalStorage();
+    
       
-      // Carrega os dados do localStorage e atualiza o DOM
       loadFromLocalStorage();
   
-      // Manipulação de evento para o input de observação
+     
       const obsInput = document.getElementById('obs');
       if (obsInput) {
         obsInput.addEventListener('input', function () {
@@ -101,6 +106,12 @@
         });
       }
     });
+    function logOut(){
+ 
+ localStorage.clear();
+
+ window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+}
   </script>
 
 </body>

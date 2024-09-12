@@ -17,7 +17,7 @@
 <a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
 <a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
 <a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
-<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+<a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button" onclick="logOut()">Log out</button></a>
 </div>
 
 <div id="header_user">
@@ -66,101 +66,107 @@
 
 
 <script type="text/javascript">
- document.addEventListener('DOMContentLoaded', () => {
-  const saveToLocalStorage = () => {
-    const params = new URLSearchParams(window.location.search);
-    const nomeUser = params.get('nome') || '';
-    const empresaUser = params.get('cod_empresa');
-  
-    
-    if (nomeUser.trim() !== '') { 
-      localStorage.setItem('nome_user', nomeUser);
-      localStorage.setItem('cod_empresa',empresaUser)
+  document.addEventListener('DOMContentLoaded', () => {
+   
+    const checkLocalStorage = () => {
+      const nome = localStorage.getItem('nome');
+      const senha = localStorage.getItem('senha');
+      const cod = localStorage.getItem('cod');
 
+      if (!nome || !senha || !cod) {
+        
+        alert('Dados ausentes no localStorage. Redirecionando...');
+        window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkLocalStorage()) {
+      
+      return;
     }
-  };
 
+    const loadFromLocalStorage = () => {
+      const nomeUser = localStorage.getItem('nome') || 'Usuário';
 
-  
+      const nomeCadastroElement = document.getElementById('nome_cadastrado');
+      if (nomeCadastroElement) {
+        nomeCadastroElement.innerHTML = `Bem-vindo ${nomeUser}`;
+      }
 
-  const loadFromLocalStorage = () => {
-    const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+      const nomeUserElement = document.getElementById('nome_user');
+      if (nomeUserElement) {
+        const primeiroNome = nomeUser.split(" ")[0];
+        nomeUserElement.innerHTML = `${primeiroNome}`;
+      }
+
+      const imgUserElement = document.getElementById('img_user');
+      if (imgUserElement) {
+        imgUserElement.src = "/img/imagem_user.png";
+      }
+    };
+    loadFromLocalStorage();
 
    
-    const nomeCadastroElement = document.getElementById('nome_cadastrado');
-    if (nomeCadastroElement) {
-      nomeCadastroElement.innerHTML = `Bem-vindo ${nomeUser}`;
-    }
-
-    const nomeUserElement = document.getElementById('nome_user');
-    if (nomeUserElement) {
-      const primeiroNome = nomeUser.split(" ")[0];
-      nomeUserElement.innerHTML = `${primeiroNome}`;
-    }
-
-    const imgUserElement = document.getElementById('img_user');
-    if (imgUserElement) {
-      imgUserElement.src = "/img/imagem_user.png";
-    }
-  };
-
-
-  saveToLocalStorage();
+    const fetchUsuarios = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/usuario/mostrar_todos');
+        if (!response.ok) {
+          throw new Error('Erro na resposta da rede');
+        }
+        const usuarios = await response.json();
+        console.log('Dados recebidos do backend:', usuarios);
+        return usuarios;
+      } catch (error) {
+        console.error('Erro ao buscar os dados:', error);
+      }
+    };
 
   
-  loadFromLocalStorage();
+    const displayUsuarios = (usuarios) => {
+      const tamanho = usuarios.length;
+      const antigos_usuarios = document.getElementById('ultimos_clientes');
+      antigos_usuarios.innerHTML = '';
 
- 
-  const fetchUsuarios = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/usuario/mostrar_todos');
-      if (!response.ok) {
-        throw new Error('Erro na resposta da rede');
+      if (tamanho > 0) {
+        usuarios.forEach(usuario => {
+          const div = document.createElement('div');
+          div.classList.add('clientes');
+
+          const img = document.createElement('img');
+          img.classList.add('imagem_teste');
+          img.src = usuario.foto ? "/img/imagem_user.png" : "/img/imagem_user.png";
+          img.alt = usuario.Nome || "Imagem do usuário";
+
+          const nomeCliente = document.createElement('p');
+          const nomeFiltrado = usuario.Nome.split(" ")[0];
+          nomeCliente.textContent = nomeFiltrado;
+
+          div.appendChild(nomeCliente);
+          div.appendChild(img);
+          antigos_usuarios.appendChild(div);
+        });
+      } else {
+        const mensagem = document.createElement('p');
+        mensagem.textContent = 'Nenhum usuário cadastrado';
+        antigos_usuarios.appendChild(mensagem);
       }
-      const usuarios = await response.json();
-      console.log('Dados recebidos do backend:', usuarios);
-      return usuarios;
-    } catch (error) {
-      console.error('Erro ao buscar os dados:', error);
-    }
-  };
+    };
 
-  const displayUsuarios = (usuarios) => {
-    const tamanho = usuarios.length;
-    const antigos_usuarios = document.getElementById('ultimos_clientes');
-    antigos_usuarios.innerHTML = '';
-
-    if (tamanho > 0) {
-      usuarios.forEach(usuario => {
-        const div = document.createElement('div');
-        div.classList.add('clientes');
-
-        const img = document.createElement('img');
-        img.classList.add('imagem_teste');
-        img.src = usuario.foto ? "/img/imagem_user.png" : "/img/imagem_user.png"; 
-        img.alt = usuario.Nome || "Imagem do usuário";
-
-        const nomeCliente = document.createElement('p');
-        const nomeFiltrado = usuario.Nome.split(" ")[0];
-        nomeCliente.textContent = nomeFiltrado;
-
-        div.appendChild(nomeCliente);
-        div.appendChild(img);
-        antigos_usuarios.appendChild(div);
-      });
-    } else {
-      const mensagem = document.createElement('p');
-      mensagem.textContent = 'Nenhum usuário cadastrado';
-      antigos_usuarios.appendChild(mensagem);
-    }
-  };
-
-  // Busca e exibe os dados dos usuários
-  fetchUsuarios().then(displayUsuarios).catch(error => {
-    console.error('Erro ao executar fetchUsuarios:', error);
+    
+    fetchUsuarios().then(displayUsuarios).catch(error => {
+      console.error('Erro ao executar fetchUsuarios:', error);
+    });
   });
-});
-  </script>
 
+  
+  function logOut(){
+ 
+    localStorage.clear();
+
+    window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+  }
+</script>
 </body>
 </html>

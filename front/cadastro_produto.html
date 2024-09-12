@@ -16,7 +16,7 @@
             <a href="/index.html"><img id="imagem" src="/img/servicos.png" alt="servicos"><button id="header_button">Serviços</button></a>
             <a href="/estoque.html"><img id="imagem" src="/img/armazen.png" alt="estoque"><button id="header_button">Estoque</button></a>
             <a href="#"><img id="imagem" src="/img/nsei.png" alt="ajuda"><button id="header_button">Ajuda</button></a>
-            <a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button id="header_button">Log out</button></a>
+            <a href="#"><img id="imagem" src="/img/flecha.png" alt="log_out"><button onclick="logOut()" id="header_button" >Log out</button></a>
         </div>
         
         <div id="header_user">
@@ -73,19 +73,29 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const saveToLocalStorage = () => {
-                const params = new URLSearchParams(window.location.search);
-                const nomeUser = params.get('nome') || '';
-                const empresaUser = params.get('cod_empresa') || '';
 
-                if (nomeUser.trim() !== '') {
-                    localStorage.setItem('nome_user', nomeUser);
-                    localStorage.setItem('cod_empresa', empresaUser);
-                }
-            };
+      const checkLocalStorage = () => {
+      const nome = localStorage.getItem('nome');
+      const senha = localStorage.getItem('senha');
+      const cod = localStorage.getItem('cod');
+
+      if (!nome || !senha || !cod) {
+        
+        alert('Dados ausentes no localStorage. Redirecionando...');
+        window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+        return false;
+      }
+      return true;
+    };
+
+    if (!checkLocalStorage()) {
+      
+      return;
+    }  
+        
 
             const loadFromLocalStorage = () => {
-                const nomeUser = localStorage.getItem('nome_user') || 'Usuário';
+                const nomeUser = localStorage.getItem('nome') || 'Usuário';
                 const nomeUserElement = document.getElementById('nome_user');
                 if (nomeUserElement) {
                     const primeiroNome = nomeUser.split(" ")[0];
@@ -98,7 +108,7 @@
                 }
             };
 
-            saveToLocalStorage();
+        
             loadFromLocalStorage();
 
             const obsInput = document.getElementById('obs');
@@ -108,7 +118,7 @@
                 });
             }
 
-            // Função para capturar os dados dos inputs e chamar a rota com fetch
+          
             const button = document.getElementById('OBS_a');
             button.addEventListener('click', async () => {
                 const nome = document.getElementById('nome_produto').value;
@@ -117,7 +127,7 @@
                 const altura = document.getElementById('altura').value;
                 const profundidade = document.getElementById('profundidade').value;
                 const largura = document.getElementById('largura').value;
-                const cod_empr = localStorage.getItem('cod_empresa');
+                const cod_empr = localStorage.getItem('cod');
                 const cod_emprLimpo = parseInt(cod_empr.replace(/[^0-9]/g, ''), 10);
                 console.log(cod_emprLimpo)
 
@@ -145,6 +155,13 @@
                 }
             });
         });
+
+        function logOut(){
+ 
+ localStorage.clear();
+
+ window.location.href= 'http://127.0.0.1:5500/front/login_cliente.html';
+}
     </script>
 </body>
 </html>
